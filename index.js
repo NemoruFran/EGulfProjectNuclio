@@ -12,7 +12,7 @@ const mongo = mongoose.connect(
     options
   );
   mongo.then(() =>{
-    console.log("mongo listo Papito");
+    console.log("mongo listo");
   });
 
 
