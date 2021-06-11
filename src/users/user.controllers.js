@@ -12,7 +12,7 @@ const create = async (req, res) => {
         password:bcrypt.hashSync(req.body.password, salt)
     });
     const token = jwt.sign({id: entities.id},process.env.TOKEN_SECRET);
-    res.status(201).json({'token'});
+    res.status(201).json({'token':token});
 
 }
 
