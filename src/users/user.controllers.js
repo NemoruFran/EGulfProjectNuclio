@@ -5,11 +5,14 @@ const { json } = require('body-parser');
 
 
 const create = async (req, res) => {
+    const salt = bcrypt.genSaltSync(10);
     const entities = await userModel.create ({
         name:req.body.name,
         email:req.body.email,
+        password:bcrypt.hashSync(req.body.password, salt)
     });
-    res.status(201).json(entities);
+    const token = jwt.sign({id: entities.id},process.env.TOKEN_SECRET);
+    res.status(201).json(token);
 
 }
 

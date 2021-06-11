@@ -12,7 +12,7 @@ const UsersShema = new mongoose.Schema({
     address: String, 
     born: Date, 
     interests:[String],
-    role: String,
+    role: { type: String, default: 'user' },
     /* productsViews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:"products"
