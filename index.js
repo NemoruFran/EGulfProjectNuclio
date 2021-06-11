@@ -25,10 +25,9 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.disable("x-powered-by");
+app.use('/users', users);
 
-app.get("/test", (request, response) => {
-  response.send("Soy un test!");
-});
+
 
 const start = async () => {
   try {
