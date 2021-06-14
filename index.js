@@ -3,7 +3,6 @@ const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const reviews = require("./resources/reviews/router/reviews.router");
 const products = require ("./src/products/products.router");
 const users  = require('./src/users/users.router');
 require('dotenv').config()
@@ -31,7 +30,6 @@ app.use(morgan("dev"));
 app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
-app.use('/reviews', reviews);
 
 const start = async () => {
   try {
