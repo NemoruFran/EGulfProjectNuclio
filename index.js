@@ -3,13 +3,22 @@ const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const routes = require("./resources/reviews/router/reviews.router");
-const mongoose = require('mongoose');
-/* 
+const reviews = require("./resources/reviews/router/reviews.router");
+const products = require ("./src/products/products.router");
+const users  = require('./src/users/users.router');
+require('dotenv').config()
+
+const mongoose = require("mongoose");
+
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 const mongo = mongoose.connect(
-    'mongodb://mongoadmin:secret@localhost:27017',
-); */
+  process.env.DB_HOST,
+  options
+);
+
+mongo.then(()=> {
+    console.log("Mongo ready to accept queries");
+  });
 
 global.appRoot = path.resolve(__dirname);
 
@@ -20,14 +29,14 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.disable("x-powered-by");
-app.use(routes)
-
-
+app.use('/users', users);
+app.use('/products', products);
+app.use('/reviews', reviews);
 
 const start = async () => {
   try {
-    app.listen(5000, () => {
-      console.log(`REST API on http://localhost:5000/api`);
+    app.listen(5001, () => {
+      console.log(`REST API on http://localhost:5001/`);
     });
   } catch (e) {
     console.error(e);
