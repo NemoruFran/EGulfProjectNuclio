@@ -34,7 +34,7 @@ app.use('/products', products);
 const start = async () => {
   try {
     app.listen(5001, () => {
-      console.log(`REST API on http://localhost:5001/api`);
+      console.log(`REST API on http://localhost:5001/`);
     });
   } catch (e) {
     console.error(e);
