@@ -7,11 +7,10 @@ const ProductsSchema = new mongoose.Schema({
     images: { type: Buffer, contentType: Array}, //repasar
     category: String, //filtro con opciones
     caracteristicas: String, //det llargada
-    userId: mongoose.Schema.Types.ObjectId,
+    authorId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     finalPrice: Number,
     state: String, //Revisar porq no será string. Filtro con opciones
     productState: String //Revisar porq no será string. Filtro con 2 opciones
-
 });
 
 const ProductsModel = mongoose.model('products', ProductsSchema);

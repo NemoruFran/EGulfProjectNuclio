@@ -21,11 +21,12 @@ const middleware = async (req, res, next) => {
   router
   .route ("/")
     .get (productsController.all)
-    .post(middleware, productsController.create)
+    .post (productsController.create)
 
   router
   .route ("/:id")
-    .get(productsController.getOne);
+    .get(productsController.getOne)
+    .delete(productsController.remove)
 
 
   module.exports = router;

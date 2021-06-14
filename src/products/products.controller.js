@@ -9,20 +9,12 @@ const all = async (request, response) => {
 } 
 
 const create = async (request, response) => {
-    /* const errors = validationResult(request);
-    if (!errors.isEmpty()) {
-        return response.status(400).json({ errors: errors.array() });
-      } */ //SI S'AFEGEIXEN VALIDACIONS!!!!!!!! MIRAR SI CAL
-
-    const token = request.headers.authorization.split(" ")[1];
-    const tokenDecoded = jwt.decode(token);
-    console.log(tokenDecoded);
-
-    const product = await ProductsModel.create({
-    ...request.body,
-    userId: tokenDecoded.id,  
-    });
-    response.status(201).json(product)
+   const productCreated = await ProductsModel.create({
+       name: request.body.name,
+       category: request.body.category,
+       startPrice: request.body.startPrice
+   })
+   response.json(productCreated)
 }
 
 const getOne = async (request, response) => {
@@ -34,15 +26,14 @@ const getOne = async (request, response) => {
     }
 }
 
-/* const remove = async (request, response) => {
-    const deleteProductdById = await boardsModel.deleteById(request.params.id);
+const remove = async (request, response) => {
+    const deleteProductdById = await ProductsModel.deleteById(request.params.id);
     if (deleteProductdById) {
         return response.status(200).json("yay! product deleted" )
     } else {
         return response.status(404).json("sorry! couldn't delete product")
     }
-} */ //NO ENS CAL PERQUÈ NO ES POT ELIMINAR
-
+}
 
 
 /* 
@@ -66,6 +57,6 @@ module.exports = {
     all,
     create,
     getOne,
-    //remove,
+    remove,
    // update,
 }
