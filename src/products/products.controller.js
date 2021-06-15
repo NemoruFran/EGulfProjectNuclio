@@ -9,9 +9,19 @@ const all = async (request, response) => {
 } 
 
 const create = async (request, response) => {
+    /* const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenDecoded = jwt.decode(token);
+    console.log(tokenDecoded); */
+    
+
    const productCreated = await ProductsModel.create({
        name: request.body.name,
-       category: request.body.category,
+       description: request.body.description,
        startPrice: request.body.startPrice
    })
    response.json(productCreated)
