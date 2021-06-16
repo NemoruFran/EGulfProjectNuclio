@@ -6,6 +6,7 @@ const path = require("path");
 const products = require ("./src/products/products.router");
 const users  = require('./src/users/users.router');
 const bids = require('./src/bids/bids.router')
+const notifications = require ('./src/notifications/notifications.router');
 require('dotenv').config()
 
 const mongoose = require("mongoose");
@@ -17,7 +18,7 @@ const mongo = mongoose.connect(
 );
 
 mongo.then(()=> {
-    console.log("Mongo ready to accept queries");
+    console.log("Ready");
   });
 
 global.appRoot = path.resolve(__dirname);
@@ -32,11 +33,12 @@ app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
 app.use('/bids', bids)
+app.use('/notifications',notifications);
 
 const start = async () => {
   try {
     app.listen(5001, () => {
-      console.log(`REST API on http://localhost:5001/api`);
+      console.log(`REST API on http://localhost:5001/`);
     });
   } catch (e) {
     console.error(e);
