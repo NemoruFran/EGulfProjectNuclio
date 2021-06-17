@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 
 const ProductsSchema = new mongoose.Schema({
     name: String,
-    description: String, //dat llargada
+    description: String, //det llargada
     startPrice: Number,
     images: { type: Buffer, contentType: Array}, //repasar
     authorId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
-    finalPrice: Number,
     state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
-    productState: String,//Revisar porq no será string. Filtro con 2 opciones
+    productState: String,
+    timestramp: {type: Date, default: Date.now},
+    finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
 });
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
@@ -27,15 +28,12 @@ const getById = async (id) => {
     const productById = await ProductsModel.findById(id);
     return productById;
 }
+
 const search = async (query) => {
-    const products = await ProductsModel.findOne(query);
-    return products;
+        const products = await ProductsModel.findOne(query);
+        return products
 }
 
-const deleteById = async (id) => {
-    const deleteProductdById = await ProductsModel.findByIdAndDelete(id);
-    return deleteProductdById;
-} //NO ENS CAL PERQUÈ NO ES POT ELIMINAR
 
 const updateById = async (id, body) => {
     const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
@@ -48,7 +46,6 @@ module.exports = {
     create, 
     getById,
     search,
-    deleteById,
     updateById,
 }
 

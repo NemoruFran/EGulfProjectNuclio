@@ -9,20 +9,21 @@ const all = async (request, response) => {
 } 
 
 const create = async (request, response) => {
-    /* const errors = validationResult(req);
+    const errors = validationResult(request);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
 
-    const token = req.headers.authorization.split(" ")[1];
+    const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);
-    console.log(tokenDecoded); */
+    console.log(tokenDecoded);
     
-
    const productCreated = await ProductsModel.create({
        name: request.body.name,
        description: request.body.description,
-       startPrice: request.body.startPrice
+       startPrice: request.body.startPrice,
+       images: request.body.images,
+       productState: request.body.productState   
    })
    response.json(productCreated)
 }
@@ -35,19 +36,17 @@ const getOne = async (request, response) => {
         return response.status(404).json("couldn't find product!")
     }
 }
-
-const remove = async (request, response) => {
-    const deleteProductdById = await ProductsModel.deleteById(request.params.id);
-    if (deleteProductdById) {
-        return response.status(200).json("yay! product deleted" )
-    } else {
-        return response.status(404).json("sorry! couldn't delete product")
-    }
+const search = async (query) => {
+    console.log('query contains:', query);
+    const products = await ProductsModel.findOne(query);
+    console.log('products contains:', products);
+    return products
 }
 
 
 /* 
 const update = async (request, response) => {
+
     const id = request.params.id;
     const body= request.body;
 
@@ -60,13 +59,12 @@ const update = async (request, response) => {
 
 
 
-    //CONST UPDATE DE LA LISTA DE PUJAS!!!
 
 
 module.exports = {
     all,
     create,
     getOne,
-    remove,
+    search,
    // update,
 }
