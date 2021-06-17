@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const products = require ("./src/products/products.router");
 const users  = require('./src/users/users.router');
+const bids = require('./src/bids/bids.router')
 const notifications = require ('./src/notifications/notifications.router');
 require('dotenv').config()
 
@@ -31,6 +32,7 @@ app.use(morgan("dev"));
 app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
+app.use('/bids', bids)
 app.use('/notifications',notifications);
 
 const start = async () => {
