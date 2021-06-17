@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const products = require ("./src/products/products.router");
 const users  = require('./src/users/users.router');
+const reviews = require('./src/reviews/reviews.router');
 require('dotenv').config()
 
 const mongoose = require("mongoose");
@@ -13,7 +14,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 const mongo = mongoose.connect(
   process.env.DB_HOST,
   options
-);
+)
 
 mongo.then(()=> {
     console.log("Mongo ready to accept queries");
@@ -30,6 +31,7 @@ app.use(morgan("dev"));
 app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
+app.use('/reviews', reviews);
 
 const start = async () => {
   try {

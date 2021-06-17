@@ -3,17 +3,19 @@ const router = express.Router();
 const reviewsController = require('./reviews.controller')
 
 
-router.route('/reviews/product/:productid')
-    .get(reviewsController.getAllReviews)
+router.route('/product/:productId')
+    .get(reviewsController.getAllReviewsByProductId)
     .post(reviewsController.createReview)
-    .get(reviewsController.getReview)
     .delete(reviewsController.removeReview)
 
-router.route('/reviews/user/:userid')
-    .getAll(reviewsController.getAllReviews)
-    .post(reviewsController.createReview)
-    .get(reviewsController.getReview)
+router.route('/:reviewId')  //nueva ruta para llega a solo un review
+    .get(reviewsController.getReview) //este ya no sirve para nada despues de sacar los otros get?
     .delete(reviewsController.removeReview)
+
+router.route('/user/:userId')
+    .get(reviewsController.getAllReviewsByOwnerId)
+    .post(reviewsController.createReview)
+    //falta update, acordarse que es con la ruta comienza con .put
  
 
 

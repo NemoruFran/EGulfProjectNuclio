@@ -37,10 +37,16 @@ const upDate = async (id, body) => {
     return user;
 }
 
+const getAll = async () => {
+    const users = await userModel.find()
+    return users;
+};
+
 
 
 
 module.exports  = {
     create,
     upDate,
+    getAll,
 };

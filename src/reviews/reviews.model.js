@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const ReviewSchema = new mongoose.Schema({
-    userId: [{
+    productOwnerId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     }], 
-    userMakerId: [{
+    userReviewerId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     }],
@@ -15,40 +15,59 @@ const ReviewSchema = new mongoose.Schema({
     }],
     body: String,
     score: String,
-    date: { type: Date, default: Date.now },
+    creationDate: { type: Date, default: Date.now },
 });
 
 const ReviewModel = mongoose.model('review', ReviewSchema, );
 
 const create = async (review) => {
-    const reviewCreated = await ReviewModel.create(review);
-    return reviewCreated;
+    return await ReviewModel.create(review);
 };
 
 const get = async (id) => {
-    const reviewById = await ReviewModel.findById(id);
-    return reviewById;
+    return await ReviewModel.findById(id);
 };
 
 const remove = async (id) => {
-    const removeReviewById = await ReviewModel.findByIdAndDelete(id);
-    return removeReviewById;
-};
-const update = async (id, body) => {
-    const updateReviewById = await ReviewModel.findByIdAndUpdate(id, body);
-    return updateReviewById;
+    return await ReviewModel.findByIdAndDelete(id);
 };
 
-const getAll = async (id) => {
-    const reviewsById = await ReviewModel.findById(id);
-    return reviewsById;
+//Todavía no tengo un update!!!
+//versión larga del update
+/* const update = async (id, body) => {
+    const updateReviewById = await ReviewModel.findByIdAndUpdate(id, body);
+    return updateReviewById;
+}; */
+
+//versión corta del update
+/* const update = async (id, body) => {
+    return await ReviewModel.findByIdAndUpdate(id, body);
+}; */
+
+//Este getAll ya no sirve para nada???
+
+/* const getAll = async (userId) => {
+    const reviewsByUserId = await ReviewModel.findById(userId);
+    return reviewsByUserId;
+}; */
+
+const getAllReviewsByOwnerId = async (userId) => {
+    return await ReviewModel.find({ productOwnerId: userId })
 };
+
+const getAllReviewsByProductId = async (productId) => {
+    return await ReviewModel.find({ productId: productId })
+};
+
+
 
 module.exports = {
     create,
     get,
     remove,
-    update,
-    getAll
-    
+    getAllReviewsByOwnerId,
+    getAllReviewsByProductId
 }; 
+
+/* update,
+getAll, */

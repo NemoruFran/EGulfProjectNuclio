@@ -4,7 +4,8 @@ const usersControllers = require('./user.controllers');
 
 router
     .route('/')
-        .post(usersControllers.create);
+        .post(usersControllers.create)
+        .get(usersControllers.getAll);
 router
     .route('/:id')
     .put(usersControllers.upDate);

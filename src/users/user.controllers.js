@@ -28,9 +28,15 @@ const upDate = async (req, res)  =>{
     return res.status(404).json({ error: "user not fount" });
 }
 
+const getAll = async(req, res) => {
+    const users = await userModel.getAll();
+    return res.status(200).json(users)
+}
+
 
 
 module.exports = {
     create,
     upDate,
+    getAll,
 }
