@@ -5,24 +5,27 @@ const mongoose = require("mongoose");
 
 const UsersShema = new mongoose.Schema({
     name: String,
-    email: String,
+    email: {type: String, required : true},
     password: String,
     gender: String,
     profilePhoto: String,
     address: String, 
     born: Date, 
-    interests:[String],
-    role: { type: String, default: 'user' },
-    /* productsViews: [{
+    interests:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"categories"}],
+    productsViews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:"products"
-    }], */
-    /* bids: [{
+    }],
+    bids: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:"ratings"
-    }], */
-    ratings: [String],
-    Created_at: { type: Date, default: Date.now }
+    }],
+    ratings: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"ratings"}],
+    createDate: { type: Date, default: Date.now }
 
 });
 
@@ -37,10 +40,22 @@ const upDate = async (id, body) => {
     return user;
 }
 
+const get = async (id) =>  {
+    const user = await userModel.findById(id);
+    return user;
+}
+
+const search = async (query) =>  {
+    const user = await userModel.findOne(query);
+    return user;
+}
+
 
 
 
 module.exports  = {
     create,
     upDate,
+    get,
+    search,
 };

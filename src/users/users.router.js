@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const usersControllers = require('./user.controllers');
+const usersController = require('./user.controller');
 const jwt = require('jsonwebtoken');
+const { body } = require("express-validator");
 
 const middleware = async (req, res, next) =>{
     const tokenWithBearer = req.headers.authorization;
@@ -20,9 +21,13 @@ const middleware = async (req, res, next) =>{
 
 router
     .route('/')
-        .post(usersControllers.create);
+        .post(
+            body('email').isEmail(),
+            body('password').isLength({ min:6 }),
+            usersController.create);
 router
-    .route('/:id')
-    .put(middleware, usersControllers.upDate);
+    .route('/:id') 
+    .put(middleware, usersController.upDate)
+    .get(usersController.get);
 
 module.exports = router;    
