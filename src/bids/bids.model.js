@@ -11,7 +11,7 @@ const BidSchema = new mongoose.Schema({
         ref:'users'
     },
     productId:{
-        type: Object,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'products'
     },
     Creation_Date: { type: Date, default: Date.now }
