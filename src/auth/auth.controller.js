@@ -15,7 +15,7 @@ const login = async (req, res) => {
             return res.status(401).json("an error has occurred");
         }
     }
-    return res.status(400).json('Not  found')
+    return res.status(400).json('an error has occurred')
 }
 
 module.exports = {
