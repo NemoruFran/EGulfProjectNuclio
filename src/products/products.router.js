@@ -19,13 +19,18 @@ const middleware = async (req, res, next) => {
   }
 
   router
-  .route ("/")
-    .get (productsController.all)
-    .post(middleware, productsController.create)
+    .route ("/")
+      .get (productsController.all)
+      .post (middleware, productsController.create)
 
   router
-  .route ("/:id")
-    .get(productsController.getOne);
+    .route ("/:id")
+      .get(productsController.getOne)
+  
+router
+    .route('/search/:text')
+     .get(productsController.search) 
+    
 
 
   module.exports = router;

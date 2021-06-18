@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
+require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
     name: String,
-    description: String, //dat llargada
+    description: String, //det llargada
     startPrice: Number,
     images: { type: Buffer, contentType: Array}, //repasar
-    category: String, //filtro con opciones
-    caracteristicas: String, //det llargada
-    userId: mongoose.Schema.Types.ObjectId,
-    finalPrice: Number,
-    state: String, //Revisar porq no será string. Filtro con opciones
-    productState: String //Revisar porq no será string. Filtro con 2 opciones
-
+    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
+    state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
+    productState: String,
+    timestramp: {type: Date, default: Date.now},
+    bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
+    finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
 });
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
@@ -31,22 +31,22 @@ const getById = async (id) => {
     return productById;
 }
 
-const deleteById = async (id) => {
-    const deleteProductdById = await ProductsModel.findByIdAndDelete(id);
-    return deleteProductdById;
-} //NO ENS CAL PERQUÈ NO ES POT ELIMINAR
+ const searchWord = async (query) => {
+    const products = await ProductsModel.findOne(query);
+    return products;
+}
+
 
 const updateById = async (id, body) => {
-    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
+    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body).populate ("bids", "state");
     return updateProductById;
 } 
-
 
 module.exports = {
     getAll,
     create, 
     getById,
-    deleteById,
+   searchWord,
     updateById,
 }
 

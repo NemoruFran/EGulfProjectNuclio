@@ -9,20 +9,23 @@ const all = async (request, response) => {
 } 
 
 const create = async (request, response) => {
-    /* const errors = validationResult(request);
+    const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        return response.status(400).json({ errors: errors.array() });
-      } */ //SI S'AFEGEIXEN VALIDACIONS!!!!!!!! MIRAR SI CAL
+        return res.status(400).json({ errors: errors.array() });
+      }
 
     const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);
-    console.log(tokenDecoded);
-
-    const product = await ProductsModel.create({
-    ...request.body,
-    userId: tokenDecoded.id,  
-    });
-    response.status(201).json(product)
+    
+   const productCreated = await ProductsModel.create({
+       name: request.body.name,
+       description: request.body.description,
+       startPrice: request.body.startPrice,
+       images: request.body.images,
+       productState: request.body.productState,
+       sellerId: tokenDecoded.id  
+   })
+   response.json(productCreated)
 }
 
 const getOne = async (request, response) => {
@@ -33,39 +36,31 @@ const getOne = async (request, response) => {
         return response.status(404).json("couldn't find product!")
     }
 }
+    const search = async (req, res) => {
+    const text= req.params.text;
+    const filteredProducts = await ProductsModel.searchWord({name:{'$regex': text}});
+    res.json(filteredProducts);
+};
 
-/* const remove = async (request, response) => {
-    const deleteProductdById = await boardsModel.deleteById(request.params.id);
-    if (deleteProductdById) {
-        return response.status(200).json("yay! product deleted" )
-    } else {
-        return response.status(404).json("sorry! couldn't delete product")
-    }
-} */ //NO ENS CAL PERQUÈ NO ES POT ELIMINAR
-
-
-
-/* 
 const update = async (request, response) => {
+
     const id = request.params.id;
     const body= request.body;
 
     const updateProduct = await ProductsModel.updateById(id, body);
-    if (updateProduct) {
-        return response.status(200).json("yay! board updated")
+    if (state != active) {
+        return response.status(400).json("sorry, you cannot update an ongoing bid!")
     } else {
-        return response.status(404).json ("sorry, couldn't update board")
-    } */ //EEEEEPPP!!! NOMÉS ES POT FER UPDATE D'UN PRODUCTE SI AQUEST NO TÉ CAP PUJA! MIRAR COM ÉS EL TEMA PUJAS
+        return response.status(200).json (updateProduct)
 
-
-
-    //CONST UPDATE DE LA LISTA DE PUJAS!!!
+    };
+}
 
 
 module.exports = {
     all,
     create,
     getOne,
-    //remove,
-   // update,
+    search,
+    update
 }

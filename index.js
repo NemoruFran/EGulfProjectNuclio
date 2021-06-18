@@ -37,14 +37,15 @@ app.use("/auth", auth);
 app.use('/bids', bids)
 app.use('/notifications',notifications);
 
+
 const start = async () => {
   try {
     app.listen(5001, () => {
       console.log(`REST API on http://localhost:5001/`);
     });
   } catch (e) {
-    console.error(e); 
-  }     
+    console.error(e);
+  }
 };
 
 start();
