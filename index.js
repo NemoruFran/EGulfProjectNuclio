@@ -19,7 +19,7 @@ const mongo = mongoose.connect(
 );
 
 mongo.then(()=> {
-    console.log("Mongo ready to accept queries");
+    console.log("Ready");
   });
 
 global.appRoot = path.resolve(__dirname);
