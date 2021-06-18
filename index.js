@@ -32,17 +32,6 @@ app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
 app.use('/reviews', reviews);
-/* 
-app.use('/products?reviews/:ownerId/:reviewerId/:productId', users, products, reviews, function (req, res) {
-  const data = {
-      "review": {
-          "ownerId": req.params.ownerId,
-          "reviewerId": req.params.reviewerId,
-          "productId": req.params.productId,
-      }
-  }; 
-  send.json(data);
-});   */  
 
 
 const start = async () => {
