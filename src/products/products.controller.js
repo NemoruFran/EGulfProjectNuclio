@@ -16,14 +16,14 @@ const create = async (request, response) => {
 
     const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);
-    console.log(tokenDecoded);
     
    const productCreated = await ProductsModel.create({
        name: request.body.name,
        description: request.body.description,
        startPrice: request.body.startPrice,
        images: request.body.images,
-       productState: request.body.productState   
+       productState: request.body.productState,
+       sellerId: tokenDecoded.id  
    })
    response.json(productCreated)
 }
@@ -36,29 +36,25 @@ const getOne = async (request, response) => {
         return response.status(404).json("couldn't find product!")
     }
 }
-const search = async (query) => {
-    console.log('query contains:', query);
-    const products = await ProductsModel.findOne(query);
-    console.log('products contains:', products);
-    return products
-}
+    const search = async (req, res) => {
+    const text= req.params.text;
+    const filteredProducts = await ProductsModel.searchWord({name:{'$regex': text}});
+    res.json(filteredProducts);
+};
 
-
-/* 
 const update = async (request, response) => {
 
     const id = request.params.id;
     const body= request.body;
 
     const updateProduct = await ProductsModel.updateById(id, body);
-    if (updateProduct) {
-        return response.status(200).json("yay! board updated")
+    if (state != active) {
+        return response.status(400).json("sorry, you cannot update an ongoing bid!")
     } else {
-        return response.status(404).json ("sorry, couldn't update board")
-    } */ //EEEEEPPP!!! NOMÉS ES POT FER UPDATE D'UN PRODUCTE SI AQUEST NO TÉ CAP PUJA! MIRAR COM ÉS EL TEMA PUJAS
+        return response.status(200).json (updateProduct)
 
-
-
+    };
+}
 
 
 module.exports = {
@@ -66,5 +62,5 @@ module.exports = {
     create,
     getOne,
     search,
-   // update,
+    update
 }

@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
+require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
     name: String,
     description: String, //det llargada
     startPrice: Number,
     images: { type: Buffer, contentType: Array}, //repasar
-    authorId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
+    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
     productState: String,
     timestramp: {type: Date, default: Date.now},
+    bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
     finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
 });
 
@@ -29,23 +31,22 @@ const getById = async (id) => {
     return productById;
 }
 
-const search = async (query) => {
-        const products = await ProductsModel.findOne(query);
-        return products
+ const searchWord = async (query) => {
+    const products = await ProductsModel.findOne(query);
+    return products;
 }
 
 
 const updateById = async (id, body) => {
-    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
+    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body).populate ("bids", "state");
     return updateProductById;
 } 
-
 
 module.exports = {
     getAll,
     create, 
     getById,
-    search,
+   searchWord,
     updateById,
 }
 

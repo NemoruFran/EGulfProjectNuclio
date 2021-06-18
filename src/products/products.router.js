@@ -26,6 +26,11 @@ const middleware = async (req, res, next) => {
   router
     .route ("/:id")
       .get(productsController.getOne)
+  
+router
+    .route('/search/:text')
+     .get(productsController.search) 
+    
 
 
   module.exports = router;
