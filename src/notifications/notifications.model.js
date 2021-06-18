@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 
 const NotificationsSchema = new mongoose.Schema({
-    userId: String,
+    userId: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    },
     auctionId:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'users'//hace falta crear la tabla de auction  
