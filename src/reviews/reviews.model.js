@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const ReviewSchema = new mongoose.Schema({
+    // teniendo en cuenta la relación del review vs usuario y vs poroducto, debo sacar los id de un array
     productOwnerId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
@@ -32,27 +33,12 @@ const remove = async (id) => {
     return await ReviewModel.findByIdAndDelete(id);
 };
 
-//Todavía no tengo un update!!!
-//versión larga del update
-/* const update = async (id, body) => {
-    const updateReviewById = await ReviewModel.findByIdAndUpdate(id, body);
-    return updateReviewById;
-}; */
+const getAllReviewsByOwnerId = async (ownerId) => {
+    return await ReviewModel.find({ productOwnerId: ownerId })
+};
 
-//versión corta del update
-/* const update = async (id, body) => {
-    return await ReviewModel.findByIdAndUpdate(id, body);
-}; */
-
-//Este getAll ya no sirve para nada???
-
-/* const getAll = async (userId) => {
-    const reviewsByUserId = await ReviewModel.findById(userId);
-    return reviewsByUserId;
-}; */
-
-const getAllReviewsByOwnerId = async (userId) => {
-    return await ReviewModel.find({ productOwnerId: userId })
+const getAllReviewsByUserReviewerId = async (reviewerId) => {
+    return await ReviewModel.find({ userReviewerId: reviewerId })
 };
 
 const getAllReviewsByProductId = async (productId) => {
@@ -60,14 +46,29 @@ const getAllReviewsByProductId = async (productId) => {
 };
 
 
-
 module.exports = {
     create,
     get,
     remove,
     getAllReviewsByOwnerId,
+    getAllReviewsByUserReviewerId,
     getAllReviewsByProductId
 }; 
 
-/* update,
-getAll, */
+
+//Todavía no tengo un update!!!
+//versión larga del update
+/* const update = async (id, body) => {
+    const updateReviewById = await ReviewModel.findByIdAndUpdate(id, body);
+    return updateReviewById;
+};
+
+//versión corta del update
+/* const update = async (id, body) => {
+    return await ReviewModel.findByIdAndUpdate(id: body);
+}; 
+
+module.exports = {
+update
+}
+, */
