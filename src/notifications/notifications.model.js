@@ -2,17 +2,15 @@ const mongoose = require("mongoose");
 
 
 const NotificationsSchema = new mongoose.Schema({
-    userId:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
-    }],
+    userId: String,
     auctionId:[{
         type:mongoose.Schema.Types.ObjectId,
-        
+        ref:'users'//hace falta crear la tabla de auction  
+      
     }],
     name:String,
     seen:Boolean,
-    TimeStamp:{type:Date,default:Date.now},
+    createdDate:{type:Date,default:Date.now},
 });
 
 
@@ -30,7 +28,7 @@ const create = async (notification) => {
 }
 
 const getById = async (id) => {
-    const notificationById = await NotificationsModel.findById;
+    const notificationById = await NotificationsModel.findById(id);
     return notificationById;
 }
 
@@ -42,6 +40,10 @@ const updateById = async (id,body) => {
 const deleteById = async (id) => {
     const deleteNotificationById = await NotificationsModel.findByIdAndDelete(id)
     return deleteNotificationById;
+}
+
+const filter = async (userId) => {
+    return await NotificationsModel.find(userId);
 }
 
 
@@ -57,6 +59,7 @@ module.exports = {
     getById,
     updateById,
     deleteById,
+    filter,
 
 
 }
