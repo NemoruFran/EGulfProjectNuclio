@@ -7,7 +7,7 @@ const { body } = require("express-validator");
 const middleware = async (req, res, next) =>{
     const tokenWithBearer = req.headers.authorization;
     if (!tokenWithBearer){
-        return res.status(401).json('Forbidden')
+        return res.status(401)
     }
     console.log(tokenWithBearer);
     const tokenWithoutBearer = tokenWithBearer.split(' ')[1];

@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 //require("../ratings/ratings.model");
-//require("../products/products.model");
+require("../products/products.model");
+//require("../bids/bids.model");
+//require("../rating/rating.model");
+//require("../categories/categories.model");
+
+
 
 
 const UsersShema = new mongoose.Schema({
@@ -11,20 +16,21 @@ const UsersShema = new mongoose.Schema({
     profilePhoto: String,
     address: String, 
     born: Date, 
-    interests:[{
+    role: { type: String, default: 'user' },
+    /* interests:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"categories"}],
+        ref:"categories"}], */
     productsViews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:"products"
     }],
-    bids: [{
+   /* todo bids: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"ratings"
-    }],
-    ratings: [{
+        ref:"bids"
+    }], */
+    /* todo ratings: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"ratings"}],
+        ref:"ratings"}], */
     createDate: { type: Date, default: Date.now }
 
 });
