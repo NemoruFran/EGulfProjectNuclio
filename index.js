@@ -6,6 +6,8 @@ const path = require("path");
 const products = require ("./src/products/products.router");
 const users  = require('./src/users/users.router');
 const auth  = require('./src/auth/auth.router')
+const bids = require('./src/bids/bids.router')
+const notifications = require ('./src/notifications/notifications.router');
 require('dotenv').config()
 
 const mongoose = require("mongoose");
@@ -32,6 +34,8 @@ app.disable("x-powered-by");
 app.use('/users', users);
 app.use('/products', products);
 app.use("/auth", auth);
+app.use('/bids', bids)
+app.use('/notifications',notifications);
 
 const start = async () => {
   try {
