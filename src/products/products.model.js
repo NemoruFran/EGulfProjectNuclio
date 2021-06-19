@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 require ("../users/users.model");
 
+const categoriesSchema = new mongoose.Schema ({
+    name: {type: mongoose.Schema.Types.String},
+    description: {type: mongoose.Schema.Types.String},
+    productId: [{type: mongoose.Schema.Types.ObjectId, ref: "products"}]
+});
+
 const ProductsSchema = new mongoose.Schema({
     name: String,
     description: String, //det llargada
@@ -12,6 +18,7 @@ const ProductsSchema = new mongoose.Schema({
     timestramp: {type: Date, default: Date.now},
     bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
     finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
+    categories: [categoriesSchema]
 });
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
