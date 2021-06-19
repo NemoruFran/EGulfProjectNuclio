@@ -2,17 +2,18 @@ const mongoose = require("mongoose");
 require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
-    name: String,
-    description: String, //det llargada
-    startPrice: Number,
+    name: {type: mongoose.Schema.Types.String},
+    description: {type: mongoose.Schema.Types.String}, //det llargada
+    startPrice: {type: mongoose.Schema.Types.Number},
     images: { type: Buffer, contentType: Array}, //repasar
-    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
+    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
     state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
-    productState: String,
+    productState: {type: mongoose.Schema.Types.String},
     timestramp: {type: Date, default: Date.now},
     bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
-    finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
+    endCost: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA 
 });
+
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
 
@@ -38,7 +39,7 @@ const getById = async (id) => {
 
 
 const updateById = async (id, body) => {
-    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body).populate ("bids", "state");
+    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body); //MIRARRRRR
     return updateProductById;
 } 
 
@@ -46,7 +47,7 @@ module.exports = {
     getAll,
     create, 
     getById,
-   searchWord,
+    searchWord,
     updateById,
 }
 
