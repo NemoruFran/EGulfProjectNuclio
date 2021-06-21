@@ -2,9 +2,15 @@ const userModel = require('./users.model');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const { json } = require('body-parser');
+const { validationResult } = require("express-validator");
 
 
 const create = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array()});
+    }
+
     const salt = bcrypt.genSaltSync(10);
     const entities = await userModel.create ({
         name:req.body.name,
@@ -14,6 +20,11 @@ const create = async (req, res) => {
     const token = jwt.sign({id: entities.id},process.env.TOKEN_SECRET);
     res.status(201).json({'token':token});
 
+}
+
+const getAll = async(req, res) => {
+    const users = await userModel.getAll();
+    return res.status(200).json(users)
 }
 
 
@@ -28,15 +39,19 @@ const upDate = async (req, res)  =>{
     return res.status(404).json({ error: "user not fount" });
 }
 
-const getAll = async(req, res) => {
-    const users = await userModel.getAll();
-    return res.status(200).json(users)
+const get = async (req, res) => {
+    const user = await userModel.get(req.params.id);
+    const id = (req.params.id)
+    if (user)  {
+        return res.status(200).json(user);
+    }
+    return res.status(404).json({error: "user not found"})
 }
-
 
 
 module.exports = {
     create,
-    upDate,
     getAll,
+    upDate,
+    get,
 }

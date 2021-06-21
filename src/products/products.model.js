@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
+require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
-    name: String,
-    description: String, //dat llargada
-    startPrice: Number,
+    name: {type: mongoose.Schema.Types.String},
+    description: {type: mongoose.Schema.Types.String}, //det llargada
+    startPrice: {type: mongoose.Schema.Types.Number},
     images: { type: Buffer, contentType: Array}, //repasar
-    category: String, //filtro con opciones
-    caracteristicas: String, //det llargada
-    userId: mongoose.Schema.Types.ObjectId,
-    finalPrice: Number,
-    state: String, //Revisar porq no será string. Filtro con opciones
-    productState: String //Revisar porq no será string. Filtro con 2 opciones
-
+    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
+    state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
+    productState: {type: mongoose.Schema.Types.String},
+    timestramp: {type: Date, default: Date.now},
+    bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
+    endCost: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA 
 });
+
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
 
@@ -31,22 +32,22 @@ const getById = async (id) => {
     return productById;
 }
 
-const deleteById = async (id) => {
-    const deleteProductdById = await ProductsModel.findByIdAndDelete(id);
-    return deleteProductdById;
-} //NO ENS CAL PERQUÈ NO ES POT ELIMINAR
+ const searchWord = async (query) => {
+    const products = await ProductsModel.findOne(query);
+    return products;
+}
+
 
 const updateById = async (id, body) => {
-    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
+    const updateProductById = await ProductsModel.findByIdAndUpdate(id, body); //MIRARRRRR
     return updateProductById;
 } 
-
 
 module.exports = {
     getAll,
     create, 
     getById,
-    deleteById,
+    searchWord,
     updateById,
 }
 
