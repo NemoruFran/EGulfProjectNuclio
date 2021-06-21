@@ -19,6 +19,12 @@ router
      .put(notificationsControllers.update);
 
 
+router
+   .route('/user/:userId')
+      .get(notificationsControllers.getNotificationsByUserId);
+    
+
+
 
 
 module.exports = router;
