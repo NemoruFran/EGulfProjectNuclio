@@ -36,7 +36,7 @@ const getOne = async (request, response) => {
         return response.status(404).json("couldn't find product!")
     }
 }
-    const search = async (req, res) => {
+const search = async (req, res) => {
     const text= req.params.text;
     const filteredProducts = await ProductsModel.searchWord({name:{'$regex': text}});
     res.json(filteredProducts);
@@ -48,12 +48,12 @@ const update = async (request, response) => {
     const body= request.body;
 
     const updateProduct = await ProductsModel.updateById(id, body);
-    if (state != active) {
-        return response.status(400).json("sorry, you cannot update an ongoing bid!")
+    if (updateProduct) {
+        return response.status(200).json("yay! product updated")
     } else {
-        return response.status(200).json (updateProduct)
+        return response.status(404).json ("sorry, couldn't update product")
+    }
 
-    };
 }
 
 
