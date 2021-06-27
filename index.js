@@ -21,6 +21,7 @@ const mongo = mongoose.connect(
 
 mongo.then(()=> {
     console.log("Ready");
+    //codigo del seeder
   });
 
 global.appRoot = path.resolve(__dirname);
