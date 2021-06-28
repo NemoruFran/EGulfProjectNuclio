@@ -8,6 +8,7 @@ const users  = require('./src/users/users.router');
 const auth  = require('./src/auth/auth.router')
 const bids = require('./src/bids/bids.router')
 const notifications = require ('./src/notifications/notifications.router');
+const categories = require ("./src/categories/categories.router")
 require('dotenv').config()
 
 const mongoose = require("mongoose");
@@ -36,7 +37,7 @@ app.use('/products', products);
 app.use("/auth", auth);
 app.use('/bids', bids)
 app.use('/notifications',notifications);
-
+app.use('/categories', categories)
 
 const start = async () => {
   try {

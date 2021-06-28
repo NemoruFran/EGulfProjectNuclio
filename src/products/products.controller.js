@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const all = async (request, response) => {
     const product = await ProductsModel.getAll();
-    response.json(product); //EEEEEEP!!! NO VOLEM QUE ENS HO MOSTRI TOOOOT, VOLEM ALGUNS, NOMÉS, PQ SI NO SERIEN MOLTS PRODUCTES
+    response.json(product); //TODO: limitar el num de productos que pedimos
 } 
 
 const create = async (request, response) => {
@@ -54,7 +54,7 @@ const update = async (request, response) => {
     } else {
         return response.status(404).json ("sorry, couldn't update product")
     }
-}
+   }
 
 
 module.exports = {
@@ -62,5 +62,5 @@ module.exports = {
     create,
     getOne,
     search,
-    update
+    update,
 }
