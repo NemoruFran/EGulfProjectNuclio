@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+require('mongoose-type-url');
 require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
     name: String,
-    description: String, //det llargada
+    description: String,
     startPrice: Number,
-    images: { type: Buffer, contentType: Array}, //repasar
+    images: [{type: mongoose.SchemaTypes.Url}],
     sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, 
     productState: String,
