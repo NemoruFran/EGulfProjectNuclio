@@ -9,7 +9,7 @@ const ProductsSchema = new mongoose.Schema({
     sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
     state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
     productState: {type: mongoose.Schema.Types.String},
-    timestamp: {type: Date, default: Date.now},
+    timestramp: {type: Date, default: Date.now},
     bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}], //MIRAR
     endCost: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA 
 });

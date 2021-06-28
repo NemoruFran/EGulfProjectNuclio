@@ -1,5 +1,6 @@
-import faker from 'faker'
-import { Product } from '..products/ProductsModel'
+import faker from 'faker';
+import { Product } from '..products/ProductsModel';
+module.exports = require("../../index")
 
 export const seedProducts = async () => {
     try {
@@ -13,13 +14,13 @@ export const seedProducts = async () => {
                     name: faker.commerce.product(),
                     description: faker.commerce.productDescription(),
                     startPrice: faker.commerce.price(),
-                    images: faker.internet.cats, 
-                    sellerId: faker.datatype.uuid,
-                    state: faker.datatype.boolean, 
-                    productState: faker.lorem.sentence,
-                    timestramp: faker.date.past,
-                    bids: faker.datatype.number,
-                    endCost: faker.finance.amount,
+                    images: faker.internet.cats(), 
+                    sellerId: faker.datatype.uuid(),
+                    state: faker.datatype.boolean(), 
+                    productState: faker.lorem.sentence(),
+                    timestramp: faker.date.past(),
+                    bids: faker.datatype.number(),
+                    endCost: faker.finance.amount(),
                 })
             )
         }
@@ -34,3 +35,7 @@ console.log(products)
 };
 
 seedProducts()
+
+module.exports = {
+    seedProducts()
+}
