@@ -44,15 +44,15 @@ const search = async (req, res) => {
 
 
 const update = async (request, response) => {
-
+    const isActive = request.isActive;
     const id = request.params.id;
     const body= request.body;
 
-    const updateProduct = await ProductsModel.updateById(id, body);
-    if (updateProduct) {
-        return response.status(200).json("yay! product updated")
+    if (isActive) {
+        return response.status(404).json ("you cannot update an active product!")
     } else {
-        return response.status(404).json ("sorry, couldn't update product")
+        const updateProduct = await ProductsModel.updateById(id, body);
+            return response.status(200).json("yay! product updated")
     }
    }
 
