@@ -2,17 +2,18 @@ const mongoose = require("mongoose");
 require ("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
-    name: String,
-    description: String, //det llargada
-    startPrice: Number,
+    name: {type: mongoose.Schema.Types.String},
+    description: {type: mongoose.Schema.Types.String},
+    startPrice: {type: mongoose.Schema.Types.Number},
     images: { type: Buffer, contentType: Array}, //repasar
-    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
-    state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, 
-    productState: String,
-    timestramp: {type: Date, default: Date.now},
+    sellerId: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
+    state: {type: mongoose.Schema.Types.ObjectId, ref: "bids"},
+    productState: {type: mongoose.Schema.Types.String},
+    timestamp: {type: Date, default: Date.now},
     bids: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
-    finalPrice: {type: mongoose.Schema.Types.ObjectId, ref: "bids"}, 
+    endCost: {type: mongoose.Schema.Types.ObjectId, ref: "bids"},
 });
+
 
 const ProductsModel = mongoose.model('products', ProductsSchema);
 
@@ -46,7 +47,7 @@ module.exports = {
     getAll,
     create, 
     getById,
-   searchWord,
+    searchWord,
     updateById,
 }
 

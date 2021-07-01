@@ -24,10 +24,13 @@ router
         .post(
             body('email').isEmail(),
             body('password').isLength({ min:6 }),
-            usersController.create);
+            usersController.create)
+        .get(usersControllers.getAll);
 router
     .route('/:id') 
     .put(middleware, usersController.upDate)
     .get(usersController.get);
+
+
 
 module.exports = router;    

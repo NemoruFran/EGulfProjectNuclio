@@ -54,8 +54,7 @@ const update = async (request, response) => {
     } else {
         return response.status(404).json ("sorry, couldn't update product")
     }
-   }
-
+};
 
 module.exports = {
     all,
