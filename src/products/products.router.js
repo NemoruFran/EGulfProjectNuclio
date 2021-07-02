@@ -21,7 +21,7 @@ const middleware = async (req, res, next) => {
 router
   .route("/")
   .get(productsController.all)
-  .post(middleware, productsController.create);
+  .post(body("images").isURL(), middleware, productsController.create);
 
 router
   .route("/:id")

@@ -1,5 +1,5 @@
 const ProductsModel = require("./products.model");
-const { validationResult } = require("express-validator"); //validation
+const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 const all = async (request, response) => {
@@ -12,7 +12,6 @@ const create = async (request, response) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   const token = request.headers.authorization.split(" ")[1];
   const tokenDecoded = jwt.decode(token);
 

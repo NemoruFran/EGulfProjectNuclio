@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-require("mongoose-type-url"); //asegura que sea una url
 require("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({
-  name: String,
-  description: String,
-  startPrice: Number,
-  images: [{ type: mongoose.SchemaTypes.Url }],
+  name: { type: mongoose.Schema.Types.String },
+  description: { type: mongoose.Schema.Types.String },
+  startPrice: { type: mongoose.Schema.Types.Number },
+  images: [{ type: mongoose.Schema.Types.String }],
   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-  isActive: { type: mongoose.Schema.Types.Boolean, default: true },
-  productState: String,
-  timestamp: { type: Date, default: Date.now },
+  state: { type: mongoose.Schema.Types.ObjectId, ref: "bids" },
+  productState: { type: mongoose.Schema.Types.String },
+  timestramp: { type: Date, default: Date.now },
   bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }],
   finalPrice: { type: mongoose.Schema.Types.ObjectId, ref: "bids" },
 });
@@ -37,13 +36,6 @@ const searchWord = async (query) => {
   return products;
 };
 
-const getState = async (productStatus) => {
-  const state = await ProductsModel.find({
-    isActive: productStatus,
-  });
-  return state;
-};
-
 const updateById = async (id, body) => {
   const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
   return updateProductById;
@@ -54,6 +46,5 @@ module.exports = {
   create,
   getById,
   searchWord,
-  getState,
   updateById,
 };
