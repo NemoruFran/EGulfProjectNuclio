@@ -37,6 +37,13 @@ const searchWord = async (query) => {
   return products;
 };
 
+const getState = async (productStatus) => {
+  const state = await ProductsModel.find({
+    isActive: productStatus,
+  });
+  return state;
+};
+
 const updateById = async (id, body) => {
   const updateProductById = await ProductsModel.findByIdAndUpdate(id, body);
   return updateProductById;
@@ -47,5 +54,6 @@ module.exports = {
   create,
   getById,
   searchWord,
+  getState,
   updateById,
 };
