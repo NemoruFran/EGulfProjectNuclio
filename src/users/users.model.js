@@ -32,7 +32,6 @@ const UsersShema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"ratings"}], */
     createDate: { type: Date, default: Date.now }
-
 });
 
 const userModel = mongoose.model("users", UsersShema);
