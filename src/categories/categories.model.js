@@ -26,7 +26,7 @@ const getById = async (id) => {
 
  const searchWord = async (query) => {
     const category = await CategoriesModel.findOne(query);
-    return categogry;
+    return category;
 }
 
 const updateById = async (id, body) => {
