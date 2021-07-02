@@ -24,10 +24,17 @@ const getById = async (id) => {
   return categoryById;
 };
 
+<<<<<<< HEAD
 const searchWord = async (query) => {
   const category = await CategoriesModel.findOne(query);
   return category;
 };
+=======
+ const searchWord = async (query) => {
+    const category = await CategoriesModel.findOne(query);
+    return category;
+}
+>>>>>>> development
 
 const updateById = async (id, body) => {
   const updateCategoryById = await CategoriesModel.findByIdAndUpdate(id, body);
