@@ -9,7 +9,6 @@ const users  = require('./src/users/users.router');
 const auth  = require('./src/auth/auth.router')
 const bids = require('./src/bids/bids.router')
 const notifications = require ('./src/notifications/notifications.router');
-const productSeeder = require("./src/seeders/product.seeder")
 require('dotenv').config()
 require = require("esm");
 

@@ -1,6 +1,6 @@
-import faker from 'faker';
-import { Product } from '..products/ProductsModel';
-module.exports = require("../../index")
+const faker = require ('faker')
+const { Product } = require ('../products.model');
+
 
 export const seedProducts = async () => {
     try {
@@ -36,6 +36,3 @@ console.log(products)
 
 seedProducts()
 
-module.exports = {
-    seedProducts()
-}
