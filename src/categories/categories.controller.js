@@ -8,9 +8,6 @@ const all = async (request, response) => {
 
 const create = async (request, response) => {
 
-    const token = request.headers.authorization.split(" ")[1];
-    const tokenDecoded = jwt.decode(token);
-
     const categoryCreated = await CategoriesModel.create({
         name: request.body.name,
         description: request.body.description,

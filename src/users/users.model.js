@@ -37,10 +37,17 @@ const UsersShema = new mongoose.Schema({
 
 const userModel = mongoose.model("users", UsersShema);
 
+const getAll = async () => {
+    const users = await userModel.find()
+    return users;
+};
+
 const create = async (user) =>  {
     const userCreated = await userModel.create(user);
     return userCreated;
 }
+
+
 const upDate = async (id, body) => {
     const user = await userModel.findByIdAndUpdate(id,body);
     return user;
@@ -61,6 +68,7 @@ const search = async (query) =>  {
 
 module.exports  = {
     create,
+    getAll,
     upDate,
     get,
     search,

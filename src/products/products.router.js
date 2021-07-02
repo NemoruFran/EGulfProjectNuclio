@@ -9,7 +9,7 @@ const middleware = async (req, res, next) => {
     return res.status(401).json("Forbidden.");
   }
   const token = req.headers.authorization.split(" ")[1];
-
+  
   jwt.verify(token, process.env.TOKEN_SECRET, function (err) {
     if (err) {
       return res.status(401).json(err);
@@ -26,5 +26,6 @@ router
 router.route("/:id").get(productsController.getOne);
 
 router.route("/search/:text").get(productsController.search);
+
 
 module.exports = router;
