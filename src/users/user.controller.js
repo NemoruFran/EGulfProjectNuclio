@@ -22,6 +22,11 @@ const create = async (req, res) => {
 
 }
 
+const getAll = async(req, res) => {
+    const users = await userModel.getAll();
+    return res.status(200).json(users)
+}
+
 
 const upDate = async (req, res)  =>{
     const user = await userModel.upDate(req.params.id);
@@ -46,6 +51,7 @@ const get = async (req, res) => {
 
 module.exports = {
     create,
+    getAll,
     upDate,
     get,
 }
