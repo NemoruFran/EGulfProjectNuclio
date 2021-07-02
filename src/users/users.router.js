@@ -27,6 +27,7 @@ router
     usersController.create
   )
   .get(usersController.getAll);
+
 router
   .route("/:id")
   .put(middleware, usersController.upDate)

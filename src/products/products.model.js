@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-require("mongoose-type-url");
 require("../users/users.model");
 
 const ProductsSchema = new mongoose.Schema({

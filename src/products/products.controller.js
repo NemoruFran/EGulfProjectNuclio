@@ -12,7 +12,6 @@ const create = async (request, response) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   const token = request.headers.authorization.split(" ")[1];
   const tokenDecoded = jwt.decode(token);
 
@@ -35,6 +34,7 @@ const getOne = async (request, response) => {
     return response.status(404).json("couldn't find product!");
   }
 };
+
 const search = async (req, res) => {
   const text = req.params.text;
   const filteredProducts = await ProductsModel.searchWord({
@@ -45,13 +45,15 @@ const search = async (req, res) => {
 
 const update = async (request, response) => {
   const id = request.params.id;
+  const product = await ProductsModel.getById(id);
+  console.log(product);
   const body = request.body;
 
-  const updateProduct = await ProductsModel.updateById(id, body);
-  if (updateProduct) {
-    return response.status(200).json("yay! product updated");
+  if (!product.isActive) {
+    const updateProduct = await ProductsModel.updateById(id, body);
+    return updateProduct;
   } else {
-    return response.status(404).json("sorry, couldn't update product");
+    return response.status(404).json("you cannot update an active product!");
   }
 };
 
