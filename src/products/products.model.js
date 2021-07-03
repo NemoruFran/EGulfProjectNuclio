@@ -12,6 +12,7 @@ const ProductsSchema = new mongoose.Schema({
   timestramp: { type: Date, default: Date.now },
   bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }], //MIRAR
   endCost: { type: mongoose.Schema.Types.ObjectId, ref: "bids" }, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
+
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
@@ -38,6 +39,7 @@ const searchWord = async (query) => {
 
 const updateById = async (id, body) => {
   const updateProductById = await ProductsModel.findByIdAndUpdate(id, body); //MIRARRRRR
+
   return updateProductById;
 };
 
