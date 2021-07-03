@@ -8,12 +8,6 @@ const AuctionSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
-  /* auctionState: Boolean,
-  productAuction: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
-  bidsAuction: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }], // TODO Hay algo similar en ProductSchema
-  finishAuctionDate: Date,
-  masterAuctionState: Boolean,
-  timestramp: { type: Date, default: Date.now }, */
 });
 
 const AuctionModel = mongoose.model("auctions", AuctionSchema);
