@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const productsController = require("./products.controller");
+const categoriesController = require("./categories.controller");
 const jwt = require("jsonwebtoken");
-const { body } = require("express-validator");
 
 const middleware = async (req, res, next) => {
   if (!req.headers.authorization) {
@@ -18,16 +17,6 @@ const middleware = async (req, res, next) => {
   });
 };
 
-router
-  .route("/")
-  .get(productsController.all)
-  .post(body("images").isURL(), middleware, productsController.create);
-
-router
-  .route("/:id")
-  .get(productsController.getOne)
-  .put(productsController.update);
-
-router.route("/search/:text").get(productsController.search);
+router.route("/").post(middleware, categoriesController.create);
 
 module.exports = router;
