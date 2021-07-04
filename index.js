@@ -11,7 +11,7 @@ const bids = require('./src/bids/bids.router')
 const notifications = require ('./src/notifications/notifications.router');
 const categories = require ("./src/categories/categories.router")
 require('dotenv').config()
-require = require("esm");
+
 
 
 const mongoose = require("mongoose");
