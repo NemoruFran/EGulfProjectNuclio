@@ -20,6 +20,7 @@ const create = async (request, response) => {
   response.json(categoryCreated);
 };
 
+
 module.exports = {
   create,
 };
