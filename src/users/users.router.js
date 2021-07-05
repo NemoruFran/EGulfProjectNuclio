@@ -26,7 +26,7 @@ router
     body("password").isLength({ min: 6 }),
     usersController.create
   )
-  .get(usersControllers.getAll);
+  .get(usersController.getAll);
 router
   .route("/:id")
   .put(middleware, usersController.upDate)

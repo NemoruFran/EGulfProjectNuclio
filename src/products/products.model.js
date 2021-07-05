@@ -6,10 +6,10 @@ const ProductsSchema = new mongoose.Schema({
   description: { type: mongoose.Schema.Types.String },
   startPrice: { type: mongoose.Schema.Types.Number },
   images: [{ type: mongoose.Schema.Types.String }],
-  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   state: { type: mongoose.Schema.Types.ObjectId, ref: "bids" },
   productState: { type: mongoose.Schema.Types.String },
-  timestramp: { type: Date, default: Date.now },
+  timestamp: { type: Date, default: Date.now },
   bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }],
   finalPrice: { type: mongoose.Schema.Types.ObjectId, ref: "bids" },
 });
@@ -27,7 +27,10 @@ const create = async (product) => {
 };
 
 const getById = async (id) => {
-  const productById = await ProductsModel.findById(id);
+  const productById = await ProductsModel.findById(id).populate(
+    "sellerId",
+    "name"
+  ); //TODO: es pot posar un array per pillar tot el que volem
   return productById;
 };
 
