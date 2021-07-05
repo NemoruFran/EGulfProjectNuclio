@@ -12,7 +12,9 @@ const ProductsSchema = new mongoose.Schema({
   timestramp: { type: Date, default: Date.now },
   bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }], //MIRAR
   endCost: { type: mongoose.Schema.Types.ObjectId, ref: "bids" }, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
-
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "categories" },
+  usersFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
