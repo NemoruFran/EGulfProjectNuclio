@@ -11,7 +11,7 @@ const bids = require("./src/bids/bids.router");
 const notifications = require("./src/notifications/notifications.router");
 const auctions = require("./src/auction/auction.router");
 const categories = require("./src/categories/categories.router");
-const subcategories = require("./src/subcategories/subcategories.router");
+//const subcategories = require("./src/subcategories/subcategories.router");
 
 require("dotenv").config();
 
@@ -43,7 +43,7 @@ app.use("/bids", bids);
 app.use("/notifications", notifications);
 app.use("/auctions", auctions);
 app.use("/categories", categories);
-app.use("/subcategories", subcategories);
+//app.use("/subcategories", subcategories);
 
 const start = async () => {
   try {
