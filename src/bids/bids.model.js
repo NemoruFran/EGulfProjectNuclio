@@ -1,41 +1,38 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const BidSchema = new mongoose.Schema({
-    currentBid: Number,
-    maxBid: Number,
-    endCost: Number,
-    startDate: Date,
-    endDate: Date,
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
-    },
-    productId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'products'
-    },
-    Creation_Date: { type: Date, default: Date.now }
+  bidAmount: Number,
+  createdAt: { type: Date, default: Date.now },
+  updateAt: { type: Date, default: Date.now },
+  auctionId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "auctions",
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
 });
 
-const BidModel = mongoose.model("bids", BidSchema)
+const BidModel = mongoose.model("bids", BidSchema);
 
 const getAll = async () => {
-    const bids = await BidModel.find()
-    return bids
+  const bids = await BidModel.find();
+  return bids;
 };
 
 const create = async (bid) => {
-    const bidCreated = await BidModel.create(bid)
-    return bidCreated
+  const bidCreated = await BidModel.create(bid);
+  return bidCreated;
 };
 
 const getBidById = async (id) => {
-    const bidById = await BidModel.findById(id)
-    return bidById
+  const bidById = await BidModel.findById(id);
+  return bidById;
 };
 
 module.exports = {
-    getAll,
-    create,
-    getBidById
+  getAll,
+  create,
+  getBidById,
 };
