@@ -110,18 +110,3 @@ module.exports = {
   addFav,
   removeFav,
 };
-
-/*
-
-  const updateProduct = await ProductsModel.updateById(({usersFavs}, { $push: { usersFavs: userId } }));
-  return response.status(200).json(updateProduct);
-
-  findOneAndUpdate({name:groupName}, { $push: { product: newProduct.id } }
-   */
-
-/* if (!product.isActive) {
-    const updateProduct = await ProductsModel.updateById(id, body);
-    return updateProduct;
-  } else {
-    return res.status(404).json("you cannot update an active product!");
-  } */
