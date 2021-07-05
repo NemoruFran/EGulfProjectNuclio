@@ -1,6 +1,6 @@
 [
     {
-        "_id": { "$oid": "5e8508ea69a10e42d07414be" },
+        "_id": { "$oid": "5e8508ea69a10e42d07414bd" },
         "name": "Marshall Stanmore II - Alta Voz Bluetooth, Color Negro, EU",
         "description": "El altavoz stanmore ii es el más versátil de la línea marshall y, además, es perfecto para cualquier habitación, ya sea grande o pequeña",
         "imageUrl": ["https://images-na.ssl-images-amazon.com/images/I/71VfR7Xhk8L._AC_SL1000_.jpg"],
@@ -11,7 +11,7 @@
         "userFavs": []
     },
     {
-        "_id": { "$oid": "5e8508ea69a10e42d07414be" },
+        "_id": { "$oid": "5e850bd669a10e42d07414c1" },
         "name": "Consola PlayStation 5 + Marvel´s Spider-Man Miles Morales + Destruction Allstars",
         "description": "Incluye un mando DualSense y los juegos Marvel´s Spider-Man: Miles Morales y Destruction Allstars",
         "imageUrl": ["https://images-na.ssl-images-amazon.com/images/I/61GVci%2B2CkS._AC_SL1500_.jpg"],
