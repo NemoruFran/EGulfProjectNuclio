@@ -27,6 +27,9 @@ router
     usersController.create
   )
   .get(usersController.getAll);
+
+router.route("/me/favorites").get(middleware, usersController.getFav);
+
 router
   .route("/:id")
   .put(middleware, usersController.upDate)

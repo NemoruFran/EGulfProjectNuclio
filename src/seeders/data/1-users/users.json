@@ -11,6 +11,6 @@
         "name": "Pablo Picasso",
         "email": "pablo@picasso.com",
         "password": "$2a$10$hhn8vSvl6rpv42undbkQ.O5XIdIJkujyqQWqKIxRJgLQYCGlM/6rW",
-        "male": "female"
+        "gender": "female"
     }
 ]
