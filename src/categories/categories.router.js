@@ -1,20 +1,22 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const categoriesController = require ("./categories.controller");
+const categoriesController = require("./categories.controller");
+const jwt = require("jsonwebtoken");
 
-router
-    .route ("/") 
-        .get(categoriesController.all)
-        .post(categoriesController.create)
+const middleware = async (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(401).json("Forbidden.");
+  }
+  const token = req.headers.authorization.split(" ")[1];
 
-router
-    .route ("/:id")
-        .get(categoriesController.getOne)
+  jwt.verify(token, process.env.TOKEN_SECRET, function (err) {
+    if (err) {
+      return res.status(401).json(err);
+    }
+    return next();
+  });
+};
 
-router
-    .route('/search/:text')
-        .get(categoriesController.search) 
+router.route("/").post(middleware, categoriesController.create);
 
-module.exports = router; 
-    
-        
+module.exports = router;
