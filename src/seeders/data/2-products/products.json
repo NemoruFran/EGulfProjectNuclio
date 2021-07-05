@@ -7,7 +7,7 @@
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Federico",
-        "categoryId": [],
+        "categoryId": "6543",
         "userFavs": []
     },
     {
@@ -18,7 +18,7 @@
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Eudald",
-        "categoryId": [],
+        "categoryId": "2456",
         "userFavs": []
     }
 ]
