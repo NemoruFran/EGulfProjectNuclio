@@ -1,7 +1,6 @@
 const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const userModel = require("./../users/users.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -11,7 +10,7 @@ const all = async (request, response) => {
 const create = async (request, response) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
-    return response.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
   const token = request.headers.authorization.split(" ")[1];
   const tokenDecoded = jwt.decode(token);
@@ -22,7 +21,6 @@ const create = async (request, response) => {
     startPrice: request.body.startPrice,
     images: request.body.images,
     productState: request.body.productState,
-    usersFavs: request.body.userFavs,
     sellerId: tokenDecoded.id,
   });
   response.json(productCreated);
@@ -59,54 +57,10 @@ const update = async (request, response) => {
   }
 };
 
-const addFav = async (req, res) => {
-  const token = req.headers.authorization.replace("Bearer ", "");
-  const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
-
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
-      $addToSet: { usersFavs: userId },
-    });
-    const updateUserFavs = await userModel.upDate(userId, {
-      $addToSet: { favoriteProducts: id },
-    });
-    return res.status(200).json({ products: updateFavs, user: updateUserFavs });
-  } else {
-    return res
-      .status(404)
-      .json("you cannot update user favorites without product id");
-  }
-};
-
-const removeFav = async (req, res) => {
-  const token = req.headers.authorization.replace("Bearer ", "");
-  const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
-
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
-      $pull: { usersFavs: userId },
-    });
-    const updateUserFavs = await userModel.upDate(userId, {
-      $pull: { favoriteProducts: id },
-    });
-    return res.status(200).json({ products: updateFavs, user: updateUserFavs });
-  } else {
-    return res
-      .status(404)
-      .json("you cannot remove user favorites without product id");
-  }
-};
-
 module.exports = {
   all,
   create,
   getOne,
   search,
   update,
-  addFav,
-  removeFav,
 };

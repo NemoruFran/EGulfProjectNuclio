@@ -9,13 +9,9 @@ const users = require("./src/users/users.router");
 const auth = require("./src/auth/auth.router");
 const bids = require("./src/bids/bids.router");
 const notifications = require("./src/notifications/notifications.router");
-const auctions = require("./src/auction/auction.router");
 const categories = require("./src/categories/categories.router");
-//const subcategories = require("./src/subcategories/subcategories.router");
-
+const subcategories = require("./src/subcategories/subcategories.router");
 require("dotenv").config();
-
-
 
 const mongoose = require("mongoose");
 
@@ -41,9 +37,8 @@ app.use("/products", products);
 app.use("/auth", auth);
 app.use("/bids", bids);
 app.use("/notifications", notifications);
-app.use("/auctions", auctions);
 app.use("/categories", categories);
-//app.use("/subcategories", subcategories);
+app.use("/subcategories", subcategories);
 
 const start = async () => {
   try {

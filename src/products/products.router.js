@@ -24,11 +24,6 @@ router
   .post(body("images").isURL(), middleware, productsController.create);
 
 router
-  .route("/:id/favorite")
-  .put(middleware, productsController.addFav)
-  .delete(middleware, productsController.removeFav);
-
-router
   .route("/:id")
   .get(productsController.getOne)
   .put(productsController.update);
