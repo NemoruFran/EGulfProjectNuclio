@@ -21,6 +21,7 @@ const getById = async (id) => {
   const auctionById = await AuctionModel.findById(id);
   return auctionById;
 };
+
 const updateById = async (id, body) => {
   const updateAuctionById = await AuctionModel.findByIdAndUpdate(id, body);
   return updateAuctionById;
