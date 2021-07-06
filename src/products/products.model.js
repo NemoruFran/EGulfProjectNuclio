@@ -5,6 +5,7 @@ const ProductsSchema = new mongoose.Schema({
   name: { type: mongoose.Schema.Types.String },
   description: { type: mongoose.Schema.Types.String }, //det llargada
   images: [{ type: mongoose.Schema.Types.String }],
+  shippingFee: { type: mongoose.Schema.Types.Number },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "categories" },
   usersFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],

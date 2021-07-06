@@ -4,6 +4,7 @@
         "name": "Marshall Stanmore II - Alta Voz Bluetooth, Color Negro, EU",
         "description": "El altavoz stanmore ii es el más versátil de la línea marshall y, además, es perfecto para cualquier habitación, ya sea grande o pequeña",
         "imageUrl": ["https://images-na.ssl-images-amazon.com/images/I/71VfR7Xhk8L._AC_SL1000_.jpg"],
+        "shippingFee": 2,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Fede",
@@ -15,6 +16,7 @@
         "name": "Consola PlayStation 5 + Marvel´s Spider-Man Miles Morales + Destruction Allstars",
         "description": "Incluye un mando DualSense y los juegos Marvel´s Spider-Man: Miles Morales y Destruction Allstars",
         "images": ["https://images-na.ssl-images-amazon.com/images/I/61GVci%2B2CkS._AC_SL1500_.jpg"],
+        "shippingFee": 3,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Eudald",
@@ -31,6 +33,7 @@
           "https://images.unsplash.com/photo-1618667946843-011e40bde10a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dHVybnRhYmxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
           "https://images.unsplash.com/photo-1492560704044-e15259ca1c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dHVybnRhYmxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
         ],
+        "shippingFee": 2,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Clau",
@@ -47,6 +50,7 @@
           "https://images.unsplash.com/photo-1587747319903-3dab1afcfd90?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2FtZXJhJTIwc29ueXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
           "https://images.unsplash.com/photo-1529111424977-59e5afaf5824?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FtZXJhJTIwc29ueXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
         ],
+        "shippingFee": 3,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Fran",
@@ -64,6 +68,7 @@
           "https://images.unsplash.com/photo-1593606839007-cdc8cea35d9b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE4fHxiYXNrZXRiYWxsJTIwYmFsbHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
           "https://images.unsplash.com/photo-1625038627556-966ed84eaa97?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTczfHxiYXNrZXRiYWxsJTIwYmFsbHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
         ],
+        "shippingFee": 1,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Vero",
@@ -80,6 +85,7 @@
           "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/da4c5f72-eb96-4327-8f73-897617d83d8f/sb-zoom-blazer-mid-zapatillas-de-skateboard-QxTN51.png",
           "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/b4a926b9-1c5b-4dfa-a8cb-8a7b7ea59ac5/sb-zoom-blazer-mid-zapatillas-de-skateboard-QxTN51.png"
         ],
+        "shippingFee": 1,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Albert",
@@ -96,6 +102,7 @@
           "https://www.sideshow.com/storage/product-images/400369/the-child_star-wars_gallery_60072324117e3.jpg",
           "https://www.sideshow.com/storage/product-images/400369/the-child_star-wars_gallery_60072326e0eae.jpg"
         ],
+        "shippingFee": 1,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Alfonso",
@@ -113,6 +120,7 @@
           "https://images-na.ssl-images-amazon.com/images/I/81iR-CiKk3L._AC_SL1500_.jpg",
           "https://images-na.ssl-images-amazon.com/images/I/71wBgGcACmS._AC_SL1200_.jpg"
         ],
+        "shippingFee": 1,
         "createdAt": "4/06/2021",
         "updatedAt": "5/06/2021",
         "owner": "Luis",
