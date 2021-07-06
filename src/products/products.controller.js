@@ -24,6 +24,7 @@ const create = async (request, response) => {
     productState: request.body.productState,
     usersFavs: request.body.userFavs,
     sellerId: tokenDecoded.id,
+    categoryId: request.body.categoryId,
   });
   response.json(productCreated);
 };
