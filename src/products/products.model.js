@@ -4,17 +4,13 @@ require("../users/users.model");
 const ProductsSchema = new mongoose.Schema({
   name: { type: mongoose.Schema.Types.String },
   description: { type: mongoose.Schema.Types.String }, //det llargada
-  startPrice: { type: mongoose.Schema.Types.Number },
   images: [{ type: mongoose.Schema.Types.String }],
-  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-  state: { type: mongoose.Schema.Types.ObjectId, ref: "bids" },
-  productState: { type: mongoose.Schema.Types.String },
-  timestramp: { type: Date, default: Date.now },
-  bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }], //MIRAR
-  endCost: { type: mongoose.Schema.Types.ObjectId, ref: "bids" }, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
+  shippingFee: { type: mongoose.Schema.Types.Number },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "categories" },
   usersFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+  createdAt: { type: Date, default: Date.now },
+  updateAt: { type: Date, default: Date.now },
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
