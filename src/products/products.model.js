@@ -4,17 +4,13 @@ require("../users/users.model");
 const ProductsSchema = new mongoose.Schema({
   name: { type: mongoose.Schema.Types.String },
   description: { type: mongoose.Schema.Types.String }, //det llargada
-  startPrice: { type: mongoose.Schema.Types.Number },
-  images: { type: Buffer, contentType: Array }, //repasar
-  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-  state: { type: mongoose.Schema.Types.ObjectId, ref: "bids" }, //MIRAR COM CRIDAR-HO QUAN L'ALBERT HO TINGUI
-  productState: { type: mongoose.Schema.Types.String },
-  timestramp: { type: Date, default: Date.now },
-  bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "bids" }], //MIRAR
-  endCost: { type: mongoose.Schema.Types.ObjectId, ref: "bids" }, //MIRAR COM. VE DE L'ALBERT QUAN ACABA LA PUJA
+  images: [{ type: mongoose.Schema.Types.String }],
+  shippingFee: { type: mongoose.Schema.Types.Number },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "categories" },
   usersFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+  createdAt: { type: Date, default: Date.now },
+  updateAt: { type: Date, default: Date.now },
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
@@ -30,7 +26,10 @@ const create = async (product) => {
 };
 
 const getById = async (id) => {
-  const productById = await ProductsModel.findById(id);
+  const productById = await ProductsModel.findById(id).populate(
+    "sellerId",
+    "name"
+  ); //TODO: es pot posar un array per pillar tot el que volem
   return productById;
 };
 
