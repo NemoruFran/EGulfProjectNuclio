@@ -19,10 +19,12 @@ const middleware = async (req, res, next) => {
 };
 
 router
+  .route("/")
+  .get(auctionController.getAll)
+  .post(middleware, auctionController.create);
+
+router
   .route("/:id")
   .get(auctionController.getOne)
   .put(auctionController.update);
-
-router.route("/").post(middleware, auctionController.create);
-
 module.exports = router;

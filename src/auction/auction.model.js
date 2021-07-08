@@ -17,6 +17,11 @@ const create = async (auction) => {
   return auctionCreated;
 };
 
+const getAll = async () => {
+  const auctions = await AuctionModel.find().populate('products');
+  return auctions;
+};
+
 const getById = async (id) => {
   const auctionById = await AuctionModel.findById(id);
   return auctionById;
@@ -30,4 +35,5 @@ module.exports = {
   create,
   getById,
   updateById,
+  getAll,
 };
