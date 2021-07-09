@@ -18,11 +18,19 @@ const create = async (auction) => {
 };
 
 const getById = async (id) => {
-  const auctionById = await AuctionModel.findById(id);
+  const auctionById = await AuctionModel.findById(id)
+    .populate("productId", ["name", "description"])
+    .populate({
+      path: "productId",
+      populate: {
+        path: "sellerId",
+        model: "users",
+        select: "name rating",
+      },
+    });
   return auctionById;
 };
 const updateById = async (id, body) => {
-  const updateAuctionById = await AuctionModel.findByIdAndUpdate(id, body);
   return updateAuctionById;
 };
 
