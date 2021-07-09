@@ -31,8 +31,14 @@ const getBidById = async (id) => {
   return bidById;
 };
 
+const bidsByAuction = async (query) => {
+  const bids = await BidModel.find(query);
+  return bids;
+};
+
 module.exports = {
   getAll,
   create,
   getBidById,
+  bidsByAuction,
 };
