@@ -20,14 +20,14 @@ const create = async (auction) => {
 };
 
 const getAll = async () => {
-  const auctions = await AuctionModel.find().populate("productId", ["name", "description","images"]).populate({
+  const auctions = await AuctionModel.find().populate("productId", ["name", "description", "images"])
+  .populate({
     path: "productId",
     populate: {
-      path: "sellerId",
+      path: "owner",
       model: "users",
-      select: "name rating"
-    }
-  })
+    },
+  });
   return auctions;
 };
 
