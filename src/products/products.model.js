@@ -48,10 +48,16 @@ const updateById = async (id, body) => {
   return updateProductById;
 };
 
+const getByIdSimple = async (id) => {
+  const product = await ProductsModel.findById(id);
+  return product;
+};
+
 module.exports = {
   getAll,
   create,
   getById,
   searchWord,
   updateById,
+  getByIdSimple,
 };
