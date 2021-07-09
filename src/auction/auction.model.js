@@ -26,8 +26,14 @@ const updateById = async (id, body) => {
   return updateAuctionById;
 };
 
+const getOneByQuery = async (query) => {
+  const auctions = await AuctionModel.findOne(query);
+  return auctions;
+};
+
 module.exports = {
   create,
   getById,
   updateById,
+  getOneByQuery,
 };
