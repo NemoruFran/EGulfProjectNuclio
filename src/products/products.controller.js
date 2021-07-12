@@ -139,9 +139,7 @@ const auctionAndBids = async (request, response) => {
   });
 
   if (auctionById && bidById) {
-    return response
-      .status(200)
-      .json({ auctions: auctionById, bids: [bidById] });
+    return response.status(200).json({ auctions: auctionById, bids: bidById });
   } else {
     return response.status(404).json("couldn't find auction or bids!");
   }
