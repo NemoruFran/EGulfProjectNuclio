@@ -17,6 +17,13 @@ const middleware = async (req, res, next) => {
   });
 };
 
-router.route("/").post(middleware, categoriesController.create);
+router
+  .route("/")
+  .post(middleware, categoriesController.create)
+  .get(categoriesController.getAll);
+
+router.route("/:id/products").get(categoriesController.getProducts);
+router.route("/:id/subcategories").get(categoriesController.getSubcategories);
+router.route("/:id/parents").get(categoriesController.getParents);
 
 module.exports = router;
