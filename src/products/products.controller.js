@@ -138,10 +138,10 @@ const auctionAndBids = async (request, response) => {
     auctionId: bidId,
   });
 
-  if (auctionById && bidById) {
+  if (auctionById || bidById) {
     return response.status(200).json({ auctions: auctionById, bids: bidById });
   } else {
-    return response.status(404).json("couldn't find auction or bids!");
+    return response.status(404).json("couldn't find auction and bids!");
   }
 };
 
