@@ -113,16 +113,35 @@ const createBid = async (request, response) => {
     productId: paramId,
   });
 
-  const token = request.headers.authorization.split(" ")[1];
-  const tokenDecoded = jwt.decode(token);
-  const userTokenId = tokenDecoded.user._id;
+  const bidId = auctionById._id;
 
-  const bid = await bidModel.create({
-    ...request.body,
-    userId: userTokenId,
-    auctionId: auctionById.id,
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: bidId,
   });
-  response.status(201).json(bid);
+
+  if (
+    request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount ||
+    (!bidById[bidById.length - 1]?.bidAmount &&
+      request?.body?.bidAmount > auctionById?.startingPrice)
+  ) {
+    const token = request.headers.authorization.split(" ")[1];
+    const tokenDecoded = jwt.decode(token);
+    const userTokenId = tokenDecoded.user._id;
+
+    const bid = await bidModel.create({
+      ...request.body,
+      userId: userTokenId,
+      auctionId: auctionById.id,
+    });
+
+    return response.status(201).json(bid);
+  } else {
+    return response
+      .status(404)
+      .json(
+        "you cannot create bid because the bid is too low or doesn't exist"
+      );
+  }
 };
 
 const auctionAndBids = async (request, response) => {
