@@ -15,7 +15,7 @@ const create = async (req, res) => {
     name: req.body.name,
     avatar: req.body.avatar,
     rating: req.body.rating,
-    address: req.body.rating,
+    address: req.body.address,
     gender: req.body.gender,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, salt),
