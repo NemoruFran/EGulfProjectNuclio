@@ -1,42 +1,26 @@
 const mongoose = require("mongoose");
-//require("../ratings/ratings.model");
 require("../products/products.model");
-//require("../bids/bids.model");
-//require("../rating/rating.model");
-//require("../categories/categories.model");
 
 const UsersShema = new mongoose.Schema({
   name: String,
   email: { type: String, required: true },
   password: String,
   gender: String,
-  profilePhoto: String,
+  avatar: { type: String },
   address: String,
   born: Date,
   role: { type: String, default: "user" },
-  /* interests:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"categories"}], */
   productsViews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "products",
     },
   ],
-  /* todo bids: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"bids"
-    }], */
-  /* todo ratings: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"ratings"}], */
+  rating: Number,
   createDate: { type: Date, default: Date.now },
-  favoriteProducts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "products",
-    },
-  ],
+  userUpdated: Date,
+  productFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
+  
 });
 
 const userModel = mongoose.model("users", UsersShema);
