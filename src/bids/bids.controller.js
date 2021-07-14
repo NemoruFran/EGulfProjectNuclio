@@ -1,37 +1,22 @@
-const bidModel = require("./bids.model")
-const jwt = require("jsonwebtoken")
+const bidModel = require("./bids.model");
+const jwt = require("jsonwebtoken");
 
 const all = async (request, response) => {
-  const bids = await bidModel.getAll()
-  response.json(bids)
-}
+  const bids = await bidModel.getAll();
+  response.json(bids);
+};
 
-const create = async (request, response) => {
- 
-  const token = request.headers.authorization.split(" ")[1]
-  const tokenDecoded = jwt.decode(token)
+const findBid = async (request, response) => {
+  const bidByAuctionId = await bidModel.getBidById(request.params.id);
 
-  const bid = await bidModel.create({
-    ...request.body,
-    userId: tokenDecoded.id,  
-  })
-
-  response.status(201).json(bid)
-}
-
-const find = async (request, response) => {
-
-  const bidById = await bidModel.getBidById(request.params.id)
-
-  if (bidById) {
-    return response.status(200).json(bidById)
+  if (bidByAuctionId) {
+    return response.status(200).json(bidByAuctionId);
   } else {
-    return response.status(404).json("No bid found")
+    return response.status(404).json("No bid found");
   }
-}
+};
 
 module.exports = {
   all,
-  create, 
-  find
-}
+  findBid,
+};
