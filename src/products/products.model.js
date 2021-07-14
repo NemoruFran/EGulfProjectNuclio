@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 require("../users/users.model");
+require("../categories/categories.model");
 
 const ProductsSchema = new mongoose.Schema({
   name: { type: mongoose.Schema.Types.String },
@@ -38,10 +39,20 @@ const searchWord = async (query) => {
   return products;
 };
 
+const search = async (query) => {
+  const products = await ProductsModel.find(query);
+  return products;
+};
+
 const updateById = async (id, body) => {
   const updateProductById = await ProductsModel.findByIdAndUpdate(id, body); //MIRARRRRR
 
   return updateProductById;
+};
+
+const getByIdSimple = async (id) => {
+  const product = await ProductsModel.findById(id);
+  return product;
 };
 
 module.exports = {
@@ -50,4 +61,6 @@ module.exports = {
   getById,
   searchWord,
   updateById,
+  getByIdSimple,
+  search,
 };

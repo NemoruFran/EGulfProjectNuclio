@@ -32,6 +32,11 @@ const getOne = async (request, response) => {
   }
 };
 
+const getAll = async (req, res) => {
+  const auctions = await AuctionModel.getAll();
+  return res.status(200).json(auctions);
+};
+
 const update = async (request, response) => {
   const id = request.params.id;
   const body = request.body;
@@ -51,4 +56,5 @@ module.exports = {
   create,
   getOne,
   update,
+  getAll,
 };
