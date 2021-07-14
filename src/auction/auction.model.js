@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+require("../products/products.model");
+
 
 const AuctionSchema = new mongoose.Schema({
   startingDateTime: Date,
@@ -15,6 +17,18 @@ const AuctionModel = mongoose.model("auctions", AuctionSchema);
 const create = async (auction) => {
   const auctionCreated = await AuctionModel.create(auction);
   return auctionCreated;
+};
+
+const getAll = async () => {
+  const auctions = await AuctionModel.find().populate("productId", ["name", "description", "images"])
+  .populate({
+    path: "productId",
+    populate: {
+      path: "owner",
+      model: "users",
+    },
+  });
+  return auctions;
 };
 
 const getById = async (id) => {
@@ -44,4 +58,5 @@ module.exports = {
   getById,
   updateById,
   getOneByQuery,
+  getAll,
 };
