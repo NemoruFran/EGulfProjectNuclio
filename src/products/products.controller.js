@@ -120,9 +120,9 @@ const createBid = async (request, response) => {
   });
 
   if (
-    request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount ||
-    (!bidById[bidById.length - 1]?.bidAmount &&
-      request?.body?.bidAmount > auctionById?.startingPrice)
+    request.body.bidAmount > bidById[bidById.length - 1].bidAmount ||
+    (!bidById[bidById.length - 1].bidAmount &&
+      request.body.bidAmount > auctionById.startingPrice)
   ) {
     const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);

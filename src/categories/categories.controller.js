@@ -73,10 +73,20 @@ const getParents = async (request, response) => {
   return response.status(200).json(parents);
 };
 
+const getMainParents = async (request, response) => {
+  const parents = await CategoryModel.getSubcategories("");
+  if (parents) {
+    return response.status(200).json(parents);
+  } else {
+    return response.status(404).json("no main parents found");
+  }
+};
+
 module.exports = {
   create,
   getProducts,
   getSubcategories,
   getAll,
   getParents,
+  getMainParents,
 };

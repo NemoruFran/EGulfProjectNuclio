@@ -25,5 +25,6 @@ router
 router.route("/:id/products").get(categoriesController.getProducts);
 router.route("/:id/subcategories").get(categoriesController.getSubcategories);
 router.route("/:id/parents").get(categoriesController.getParents);
+router.route("/parents").get(categoriesController.getMainParents);
 
 module.exports = router;
