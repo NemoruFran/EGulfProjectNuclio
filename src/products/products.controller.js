@@ -74,7 +74,7 @@ const addFav = async (req, res) => {
       $addToSet: { usersFavs: userId },
     });
     const updateUserFavs = await userModel.upDate(userId, {
-      $addToSet: { favoriteProducts: id },
+      $addToSet: { productFavs: id },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
@@ -96,7 +96,7 @@ const removeFav = async (req, res) => {
       $pull: { usersFavs: userId },
     });
     const updateUserFavs = await userModel.upDate(userId, {
-      $pull: { favoriteProducts: id },
+      $pull: { productFavs: id },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
