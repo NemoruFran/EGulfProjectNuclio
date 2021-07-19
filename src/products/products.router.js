@@ -36,5 +36,10 @@ router
 router.route("/search/:text").get(productsController.search);
 
 router.route("/user/:id").get(productsController.genericSearch);
+router
+  .route("/:id/currentAuction/bid")
+  .post(middleware, productsController.createBid);
+
+router.route("/:id/currentAuction").get(productsController.auctionAndBids);
 
 module.exports = router;
