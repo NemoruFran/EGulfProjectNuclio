@@ -121,6 +121,4 @@ module.exports = {
   addFav,
   removeFav,
   genericSearch,
-  createBid,
-  auctionAndBids,
 };

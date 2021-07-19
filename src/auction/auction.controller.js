@@ -56,7 +56,7 @@ const update = async (request, response) => {
 const createBid = async (request, response) => {
   const paramId = request.params.id;
 
-  const auctionById = await AuctionModel.getById(paramId)
+  const auctionById = await AuctionModel.getById(paramId);
 
   const bidById = await bidModel.bidsByAuction({
     auctionId: paramId,
@@ -90,7 +90,7 @@ const createBid = async (request, response) => {
 const auctionAndBids = async (request, response) => {
   const paramId = request.params.id;
 
-  const auctionById = await AuctionModel.getById(paramId)
+  const auctionById = await AuctionModel.getById(paramId);
 
   const bidById = await bidModel.bidsByAuction({
     auctionId: paramId,
@@ -101,6 +101,8 @@ const auctionAndBids = async (request, response) => {
   } else {
     return response.status(404).json("couldn't find auction and bids!");
   }
+};
+
 // TODO ir a buscarlo a la base de datos
 const getByUserId = async (req, res) => {
   const userId = req.params.id;
