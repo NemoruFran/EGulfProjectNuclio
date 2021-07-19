@@ -2,8 +2,6 @@ const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const userModel = require("./../users/users.model");
-const bidModel = require("./../bids/bids.model");
-const auctionModel = require("./../auction/auction.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -106,64 +104,6 @@ const removeFav = async (req, res) => {
   }
 };
 
-const createBid = async (request, response) => {
-  const paramId = request.params.id;
-
-  const auctionById = await auctionModel.getOneByQuery({
-    productId: paramId,
-  });
-
-  const bidId = auctionById._id;
-
-  const bidById = await bidModel.bidsByAuction({
-    auctionId: bidId,
-  });
-
-  if (
-    request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount ||
-    (!bidById[bidById.length - 1]?.bidAmount &&
-      request?.body?.bidAmount > auctionById?.startingPrice)
-  ) {
-    const token = request.headers.authorization.split(" ")[1];
-    const tokenDecoded = jwt.decode(token);
-    const userTokenId = tokenDecoded.user._id;
-
-    const bid = await bidModel.create({
-      ...request.body,
-      userId: userTokenId,
-      auctionId: auctionById.id,
-    });
-
-    return response.status(201).json(bid);
-  } else {
-    return response
-      .status(404)
-      .json(
-        "you cannot create bid because the bid is too low or doesn't exist"
-      );
-  }
-};
-
-const auctionAndBids = async (request, response) => {
-  const paramId = request.params.id;
-
-  const auctionById = await auctionModel.getOneByQuery({
-    productId: paramId,
-  });
-
-  const bidId = auctionById._id;
-
-  const bidById = await bidModel.bidsByAuction({
-    auctionId: bidId,
-  });
-
-  if (auctionById || bidById) {
-    return response.status(200).json({ auctions: auctionById, bids: bidById });
-  } else {
-    return response.status(404).json("couldn't find auction and bids!");
-  }
-};
-
 module.exports = {
   all,
   create,
@@ -171,7 +111,5 @@ module.exports = {
   search,
   update,
   addFav,
-  removeFav,
-  createBid,
-  auctionAndBids,
+  removeFav
 };
