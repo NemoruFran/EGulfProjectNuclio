@@ -23,6 +23,8 @@ router
   .get(auctionController.getAll)
   .post(middleware, auctionController.create);
 
+router.route("/user/:id").get(auctionController.getByUserId);
+
 router
   .route("/:id")
   .get(auctionController.getOne)
