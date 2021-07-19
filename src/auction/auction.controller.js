@@ -101,6 +101,14 @@ const auctionAndBids = async (request, response) => {
   } else {
     return response.status(404).json("couldn't find auction and bids!");
   }
+// TODO ir a buscarlo a la base de datos
+const getByUserId = async (req, res) => {
+  const userId = req.params.id;
+  const auctions = await AuctionModel.getAll();
+  const auctionsByUser = auctions.filter(
+    (auction) => auction.productId.owner.id === userId
+  );
+  return res.status(200).json(auctionsByUser);
 };
 
 module.exports = {
@@ -110,4 +118,5 @@ module.exports = {
   getAll,
   createBid,
   auctionAndBids,
+  getByUserId,
 };

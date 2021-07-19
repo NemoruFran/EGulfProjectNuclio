@@ -28,7 +28,15 @@ const create = async (request, response) => {
   });
   response.json(productCreated);
 };
-
+const genericSearch = async (request, response) => {
+  const userId = request.params.id;
+  const productsById = await ProductsModel.getUsersProducts(userId);
+  if (productsById) {
+    return response.status(200).json(productsById);
+  } else {
+    return response.status(404).json("couldn't find product!");
+  }
+};
 const getOne = async (request, response) => {
   const productById = await ProductsModel.getById(request.params.id);
   if (productById) {
@@ -111,5 +119,8 @@ module.exports = {
   search,
   update,
   addFav,
-  removeFav
+  removeFav,
+  genericSearch,
+  createBid,
+  auctionAndBids,
 };

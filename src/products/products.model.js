@@ -12,12 +12,18 @@ const ProductsSchema = new mongoose.Schema({
   usersFavs: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
   createdAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
+  status: { type: mongoose.Schema.Types.Boolean },
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
 
 const getAll = async () => {
   const products = await ProductsModel.find();
+  return products;
+};
+
+const getUsersProducts = async (id) => {
+  const products = await ProductsModel.find({ owner: id });
   return products;
 };
 
@@ -63,4 +69,5 @@ module.exports = {
   updateById,
   getByIdSimple,
   search,
+  getUsersProducts,
 };
