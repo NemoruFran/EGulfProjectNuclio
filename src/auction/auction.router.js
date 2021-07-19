@@ -27,4 +27,9 @@ router
   .route("/:id")
   .get(auctionController.getOne)
   .put(auctionController.update);
+
+router.route("/:id/currentAuction").get(auctionController.auctionAndBids);
+
+router.route("/:id/currentAuction/bid").post(middleware, auctionController.createBid);
+
 module.exports = router;

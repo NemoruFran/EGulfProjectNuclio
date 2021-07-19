@@ -1,6 +1,7 @@
 const AuctionModel = require("./auction.model");
 const { validationResult } = require("express-validator"); //validation
 const jwt = require("jsonwebtoken");
+const bidModel = require("./../bids/bids.model");
 
 const create = async (request, response) => {
   const errors = validationResult(request);
@@ -52,9 +53,61 @@ const update = async (request, response) => {
   }
 };
 
+const createBid = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await AuctionModel.getById(paramId)
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: paramId,
+  });
+
+  if (
+    request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount ||
+    (!bidById[bidById.length - 1]?.bidAmount &&
+      request?.body?.bidAmount > auctionById?.startingPrice)
+  ) {
+    const token = request.headers.authorization.split(" ")[1];
+    const tokenDecoded = jwt.decode(token);
+    const userTokenId = tokenDecoded.user._id;
+
+    const bid = await bidModel.create({
+      ...request.body,
+      userId: userTokenId,
+      auctionId: paramId,
+    });
+
+    return response.status(201).json(bid);
+  } else {
+    return response
+      .status(404)
+      .json(
+        "you cannot create bid because the bid is too low or doesn't exist"
+      );
+  }
+};
+
+const auctionAndBids = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await AuctionModel.getById(paramId)
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: paramId,
+  });
+
+  if (auctionById || bidById) {
+    return response.status(200).json({ auctions: auctionById, bids: bidById });
+  } else {
+    return response.status(404).json("couldn't find auction and bids!");
+  }
+};
+
 module.exports = {
   create,
   getOne,
   update,
   getAll,
+  createBid,
+  auctionAndBids,
 };
