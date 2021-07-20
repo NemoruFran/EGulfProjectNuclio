@@ -63,8 +63,10 @@ const createBid = async (request, response) => {
   });
 
   if (
-    request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount ||
+    (request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount &&
+      request?.body?.bidAmount < 100000000) ||
     (!bidById[bidById.length - 1]?.bidAmount &&
+      request?.body?.bidAmount < 100000000 &&
       request?.body?.bidAmount > auctionById?.startingPrice)
   ) {
     const token = request.headers.authorization.split(" ")[1];
