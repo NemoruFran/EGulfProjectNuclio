@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 require("../products/products.model");
 
+
 const UsersShema = new mongoose.Schema({
   name: String,
   email: { type: String, required: true },
@@ -41,7 +42,16 @@ const upDate = async (id, body) => {
 };
 
 const get = async (id) => {
-  const user = await userModel.findById(id);
+  const user = await userModel.findById(id)
+  .populate("productFavs", ["name", "images"])
+  .populate({
+    path: "productFavs",
+    populate: {
+      path: "owner",
+      model: "users",
+      select: "name rating",
+    },
+  });
   return user;
 };
 

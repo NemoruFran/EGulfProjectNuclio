@@ -37,7 +37,7 @@ const upDate = async (req, res) => {
     userModel.upDate(id, body);
     return res.status(200).json(body);
   }
-  return res.status(404).json({ error: "user not fount" });
+  return res.status(404).json({ error: "user not found" });
 };
 
 const get = async (req, res) => {
@@ -57,10 +57,10 @@ const getFav = async (req, res) => {
   }
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
+  const userId = tokenDecoded.user._id;
   const user = await userModel.get(userId);
   if (user) {
-    return res.status(200).json(user.favoriteProducts);
+    return res.status(200).json(user.productFavs);
   } else {
     return res.status(404).json({ error: "user favorites not found" });
   }
