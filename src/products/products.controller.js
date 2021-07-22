@@ -2,6 +2,7 @@ const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const userModel = require("./../users/users.model");
+const auctionModel = require("./../auction/auction.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -72,15 +73,21 @@ const addFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
+  const userId = tokenDecoded.user._id;
   const id = req.params.id;
 
   if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+    const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id;
+    console.log(productId);
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $addToSet: { usersFavs: userId },
     });
+
     const updateUserFavs = await userModel.upDate(userId, {
-      $addToSet: { productFavs: id },
+      $addToSet: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
@@ -94,15 +101,20 @@ const removeFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
+  const userId = tokenDecoded.user._id;
   const id = req.params.id;
+  console.log(userId);
 
   if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+    const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id;
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $pull: { usersFavs: userId },
     });
     const updateUserFavs = await userModel.upDate(userId, {
-      $pull: { productFavs: id },
+      $pull: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
