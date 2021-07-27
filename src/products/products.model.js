@@ -14,6 +14,7 @@ const ProductsSchema = new mongoose.Schema({
   updateAt: { type: Date, default: Date.now },
   status: { type: mongoose.Schema.Types.Boolean },
   auctions: [{ type: mongoose.Schema.Types.ObjectId, ref: "auctions" }],
+  currentPrice: { type: mongoose.Schema.Types.Number, default: 0 },
 });
 
 const ProductsModel = mongoose.model("products", ProductsSchema);
@@ -36,10 +37,10 @@ const create = async (product) => {
 };
 
 const getById = async (id) => {
-  const productById = await ProductsModel.findById(id).populate([
+  const productById = await ProductsModel.findById(id).populate(
     "owner",
-    "auctions",
-  ]); //TODO: es pot posar un array per pillar tot el que volem
+    "auctions"
+  ); //TODO: es pot posar un array per pillar tot el que volem
   return productById;
 };
 
