@@ -84,7 +84,7 @@ const createBid = async (request, response) => {
     });
 
     const updateCurrentPrice = productsModel.updateById(auctionById.productId, {
-      currentPrice: req.body.bidAmount,
+      currentPrice: request.body.bidAmount,
     });
 
     return response.status(201).json(bid);
