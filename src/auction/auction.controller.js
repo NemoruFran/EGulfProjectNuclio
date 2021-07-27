@@ -2,6 +2,7 @@ const AuctionModel = require("./auction.model");
 const { validationResult } = require("express-validator"); //validation
 const jwt = require("jsonwebtoken");
 const bidModel = require("./../bids/bids.model");
+const productsModel = require("./../products/products.model");
 
 const create = async (request, response) => {
   const errors = validationResult(request);
@@ -20,6 +21,9 @@ const create = async (request, response) => {
     createdAt: new Date(),
     productId: request.body.productId,
     sellerId: tokenDecoded.id, // No se si caldría
+  });
+  productsModel.updateById(request.body.productId, {
+    currentPrice: request.body.startingPrice,
   });
   response.json(auctionCreated);
 };
@@ -77,6 +81,10 @@ const createBid = async (request, response) => {
       ...request.body,
       userId: userTokenId,
       auctionId: paramId,
+    });
+
+    const updateCurrentPrice = productsModel.updateById(auctionById.productId, {
+      currentPrice: req.body.bidAmount,
     });
 
     return response.status(201).json(bid);
