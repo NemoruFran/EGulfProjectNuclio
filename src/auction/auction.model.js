@@ -15,7 +15,10 @@ const AuctionModel = mongoose.model("auctions", AuctionSchema);
 
 const create = async (auction) => {
   const auctionCreated = await AuctionModel.create(auction);
-  await ProductModel.updateAuctionsReference(auctionCreated.productId);
+  await ProductModel.updateAuctionsReference(
+    auctionCreated.productId,
+    auctionCreated
+  );
   return auctionCreated;
 };
 

@@ -70,10 +70,7 @@ const getByIdSimple = async (id) => {
 const updateAuctionsReference = async (productId, auction) => {
   const product = await ProductsModel.findById(productId);
   product.auctions = [...product.auctions, auction._id];
-  const updatedProduct = await ProductsModel.findByIdAndUpdate(
-    productId,
-    product
-  );
+  const updatedProduct = await product.save();
 };
 
 module.exports = {
