@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const productsController = require("./products.controller");
+const auctionController = require("./auction.controller");
 const jwt = require("jsonwebtoken");
 const { body } = require("express-validator");
 
@@ -20,21 +20,20 @@ const middleware = async (req, res, next) => {
 
 router
   .route("/")
-  .get(productsController.all)
-  .post(body("images").isURL(), middleware, productsController.create);
+  .get(auctionController.getAll)
+  .post(middleware, auctionController.create);
 
-router
-  .route("/:id/favorite")
-  .put(middleware, productsController.addFav)
-  .delete(middleware, productsController.removeFav);
+router.route("/user/:id").get(auctionController.getByUserId);
 
 router
   .route("/:id")
-  .get(productsController.getOne)
-  .put(productsController.update);
+  .get(auctionController.getOne)
+  .put(auctionController.update);
 
-router.route("/search/:text").get(productsController.search);
+router.route("/:id/currentAuction").get(auctionController.auctionAndBids);
 
-router.route("/user/:id").get(productsController.genericSearch);
+router
+  .route("/:id/currentAuction/bid")
+  .post(middleware, auctionController.createBid);
 
 module.exports = router;

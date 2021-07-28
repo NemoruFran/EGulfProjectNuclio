@@ -1,0 +1,53 @@
+[
+  {
+    "_id": { "$oid": "5e8508ea69a10e42d07414b1" },
+    "startingDateTime": "1/07/2021",
+    "endingDateTime": "7/07/2021",
+    "startingPrice": 600,
+    "shippingFee": 20,
+    "createdAt": "29/06/2021",
+    "updateAt": "1/08/2021",
+    "productId": { "$oid": "5e8508ea69a10e42d07414bd" }
+  },
+  {
+    "_id": { "$oid": "5e8508ea69a10e42d07414b2" },
+    "startingDateTime": "5/07/2021",
+    "endingDateTime": "8/07/2021",
+    "startingPrice": 90,
+    "shippingFee": 10,
+    "createdAt": "28/08/2021",
+    "updateAt": "5/07/2021",
+    "productId": { "$oid": "5e850bd669a10e42d07414c1" }
+  },
+  {
+    "_id": { "$oid": "5e8508ea69a10e42d07414b3" },
+    "startingDateTime": "15/07/2021",
+    "endingDateTime": "30/07/2021",
+    "startingPrice": 69,
+    "shippingFee": 9,
+    "createdAt": "15/06/2021",
+    "updateAt": "15/07/2021",
+    "productId": { "$oid": "5e850bd669a10e42d07414c2" }
+  },
+  {
+    "_id": { "$oid": "5e8508ea69a10e42d07414b4" },
+    "startingDateTime": "2/07/2021",
+    "endingDateTime": "22/07/2021",
+    "startingPrice": 1394,
+    "shippingFee": 50,
+    "createdAt": "27/06/2021",
+    "updateAt": "2/07/2021",
+    "productId": { "$oid": "5e850bd669a10e42d07414c3" }
+  },
+  {
+    "_id": { "$oid": "60edcc5f30fc640a63b0af63" },
+    "startingDateTime": "2/07/2021",
+    "endingDateTime": "25/07/2021",
+    "startingPrice": 1400,
+    "shippingFee": 40,
+    "createdAt": "2021-07-13T17:24:47.912Z",
+    "productId": { "$oid": "5e850bd669a10e42d07414c7" },
+    "updateAt": "2021-07-13T17:24:47.917Z",
+    "__v": 0
+  }
+]

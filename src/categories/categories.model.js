@@ -1,43 +1,44 @@
-const mongoose = require ('mongoose');
-require ("../products/products.model");
+const mongoose = require("mongoose");
 
-const CategoriesSchema = new mongoose.Schema({
-    name: {type: mongoose.Schema.Types.String},
-    description: {type: mongoose.Schema.Types.String},
-    productId: [{type: mongoose.Schema.Types.ObjectId, ref: "products"}]
-})
+const CategorySchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  shippingFee: Number,
+  createdAt: { type: Date, default: Date.now },
+  updateAt: { type: Date, default: Date.now },
+  parentCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "categories",
+  },
+});
 
-const CategoriesModel = mongoose.model("categories", CategoriesSchema); 
+const CategoryModel = mongoose.model("categories", CategorySchema);
+
+//CREAR CATEGORIAS
+const create = async (category) => {
+  const categoryCreated = await CategoryModel.create(category);
+  return categoryCreated;
+};
 
 const getAll = async () => {
-    const categories = await CategoriesModel.find();
-    return categories;
-}
+  const categories = await CategoryModel.find();
+  return categories;
+};
 
-const create = async (category) => {
-    const categoryCreated = await CategoriesModel.create(category);
-    return categoryCreated;
-}
+const findById = async (id) => {
+  const category = await CategoryModel.findById(id);
+  return category;
+};
 
-const getById = async (id) => {
-    const categoryById = await CategoriesModel.findById(id);
-    return categoryById;
-}
-
- const searchWord = async (query) => {
-    const category = await CategoriesModel.findOne(query);
-    return category;
-}
-
-const updateById = async (id, body) => {
-    const updateCategoryById = await CategoriesModel.findByIdAndUpdate(id, body)
-    return updateCategoryById;
-} 
+//GET DE SUBCATEGORIAS A PARTIR DE CATEGORIA
+const getSubcategories = async (parentId) => {
+  const subcategories = await CategoryModel.find({ parentCategory: parentId });
+  return subcategories;
+};
 
 module.exports = {
-    getAll,
-    create, 
-    getById,
-    searchWord,
-    updateById,
-}
+  create,
+  getSubcategories,
+  getAll,
+  findById,
+};

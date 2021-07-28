@@ -1,6 +1,7 @@
 const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const userModel = require("./../users/users.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -10,7 +11,7 @@ const all = async (request, response) => {
 const create = async (request, response) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return response.status(400).json({ errors: errors.array() });
   }
   const token = request.headers.authorization.split(" ")[1];
   const tokenDecoded = jwt.decode(token);
@@ -21,11 +22,22 @@ const create = async (request, response) => {
     startPrice: request.body.startPrice,
     images: request.body.images,
     productState: request.body.productState,
+    usersFavs: request.body.userFavs,
     sellerId: tokenDecoded.id,
+    categoryId: request.body.categoryId,
   });
   response.json(productCreated);
 };
 
+const genericSearch = async (request, response) => {
+  const userId = request.params.id;
+  const productsById = await ProductsModel.getUsersProducts(userId);
+  if (productsById) {
+    return response.status(200).json(productsById);
+  } else {
+    return response.status(404).json("couldn't find product!");
+  }
+};
 const getOne = async (request, response) => {
   const productById = await ProductsModel.getById(request.params.id);
   if (productById) {
@@ -57,10 +69,59 @@ const update = async (request, response) => {
   }
 };
 
+const addFav = async (req, res) => {
+  // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
+  const token = req.headers.authorization.replace("Bearer ", "");
+  const tokenDecoded = jwt.decode(token);
+  const userId = tokenDecoded.id;
+  const id = req.params.id;
+
+  if (id) {
+    const updateFavs = await ProductsModel.updateById(id, {
+      $addToSet: { usersFavs: userId },
+    });
+    const updateUserFavs = await userModel.upDate(userId, {
+      $addToSet: { favoriteProducts: id },
+    });
+    return res.status(200).json({ products: updateFavs, user: updateUserFavs });
+  } else {
+    return res
+      .status(404)
+      .json("you cannot update user favorites without product id");
+  }
+};
+
+const removeFav = async (req, res) => {
+  // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
+  const token = req.headers.authorization.replace("Bearer ", "");
+  const tokenDecoded = jwt.decode(token);
+  const userId = tokenDecoded.id;
+  const id = req.params.id;
+
+  if (id) {
+    const updateFavs = await ProductsModel.updateById(id, {
+      $pull: { usersFavs: userId },
+    });
+    const updateUserFavs = await userModel.upDate(userId, {
+      $pull: { favoriteProducts: id },
+    });
+    return res.status(200).json({ products: updateFavs, user: updateUserFavs });
+  } else {
+    return res
+      .status(404)
+      .json("you cannot remove user favorites without product id");
+  }
+};
+
+
+
 module.exports = {
   all,
   create,
   getOne,
   search,
   update,
+  addFav,
+  removeFav,
+  genericSearch,
 };
