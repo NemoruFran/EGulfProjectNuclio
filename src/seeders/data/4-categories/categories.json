@@ -1,81 +1,80 @@
-
 [
-    {
-        "_id": "60f409d361ba9657b6066f6c",
-        "name": "casa y jardín",
-        "description": "todos los productos de casa y de jardín",
-        "createdAt": "2021-07-18T11:00:35.178Z",
-        "updateAt": "2021-07-18T11:00:35.182Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40a3061ba9657b6066f6d",
-        "name": "herramientas",
-        "description": "herramientas de segunda mano",
-        "createdAt": "2021-07-18T11:02:08.395Z",
-        "parentCategory": "60f409d361ba9657b6066f6c",
-        "updateAt": "2021-07-18T11:02:08.397Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40a7661ba9657b6066f6e",
-        "name": "decoración",
-        "description": "cositas de segunda mano",
-        "createdAt": "2021-07-18T11:03:18.935Z",
-        "parentCategory": "60f409d361ba9657b6066f6c",
-        "updateAt": "2021-07-18T11:03:18.935Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40aa261ba9657b6066f6f",
-        "name": "Cortacésped",
-        "description": "Cortacésped de segunda mano",
-        "createdAt": "2021-07-18T11:04:02.683Z",
-        "parentCategory": "60f409d361ba9657b6066f6c",
-        "updateAt": "2021-07-18T11:04:02.683Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40ad361ba9657b6066f70",
-        "name": "Moda",
-        "description": "Todos los productos que necesitas para renovar tu armario",
-        "createdAt": "2021-07-18T11:04:51.106Z",
-        "updateAt": "2021-07-18T11:04:51.106Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40b1561ba9657b6066f71",
-        "name": "Pantalones",
-        "description": "Cualquier cosa",
-        "createdAt": "2021-07-18T11:05:57.207Z",
-        "parentCategory": "60f40ad361ba9657b6066f70",
-        "updateAt": "2021-07-18T11:05:57.207Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40b2161ba9657b6066f72",
-        "name": "Camisas",
-        "description": "Cualquier cosa 2",
-        "createdAt": "2021-07-18T11:06:09.629Z",
-        "parentCategory": "60f40ad361ba9657b6066f70",
-        "updateAt": "2021-07-18T11:06:09.630Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40b3161ba9657b6066f73",
-        "name": "Ropa Interior",
-        "description": "Cualquier cosa 3",
-        "createdAt": "2021-07-18T11:06:25.397Z",
-        "parentCategory": "60f40ad361ba9657b6066f70",
-        "updateAt": "2021-07-18T11:06:25.397Z",
-        "__v": 0
-      },
-      {
-        "_id": "60f40b6061ba9657b6066f74",
-        "name": "Tecnología",
-        "description": "Cualquier cosa de tech",
-        "createdAt": "2021-07-18T11:07:12.040Z",
-        "updateAt": "2021-07-18T11:07:12.040Z",
-        "__v": 0
-      }
+  {
+    "_id": "60f409d361ba9657b6066f6c",
+    "name": "casa y jardín",
+    "description": "todos los productos de casa y de jardín",
+    "createdAt": "2021-07-18T11:00:35.178Z",
+    "updateAt": "2021-07-18T11:00:35.182Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40a3061ba9657b6066f6d",
+    "name": "herramientas",
+    "description": "herramientas de segunda mano",
+    "createdAt": "2021-07-18T11:02:08.395Z",
+    "parentCategory": "60f409d361ba9657b6066f6c",
+    "updateAt": "2021-07-18T11:02:08.397Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40a7661ba9657b6066f6e",
+    "name": "decoración",
+    "description": "cositas de segunda mano",
+    "createdAt": "2021-07-18T11:03:18.935Z",
+    "parentCategory": "60f409d361ba9657b6066f6c",
+    "updateAt": "2021-07-18T11:03:18.935Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40aa261ba9657b6066f6f",
+    "name": "Cortacésped",
+    "description": "Cortacésped de segunda mano",
+    "createdAt": "2021-07-18T11:04:02.683Z",
+    "parentCategory": "60f409d361ba9657b6066f6c",
+    "updateAt": "2021-07-18T11:04:02.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40ad361ba9657b6066f70",
+    "name": "Moda",
+    "description": "Todos los productos que necesitas para renovar tu armario",
+    "createdAt": "2021-07-18T11:04:51.106Z",
+    "updateAt": "2021-07-18T11:04:51.106Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40b1561ba9657b6066f71",
+    "name": "Pantalones",
+    "description": "Cualquier cosa",
+    "createdAt": "2021-07-18T11:05:57.207Z",
+    "parentCategory": "60f40ad361ba9657b6066f70",
+    "updateAt": "2021-07-18T11:05:57.207Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40b2161ba9657b6066f72",
+    "name": "Camisas",
+    "description": "Cualquier cosa 2",
+    "createdAt": "2021-07-18T11:06:09.629Z",
+    "parentCategory": "60f40ad361ba9657b6066f70",
+    "updateAt": "2021-07-18T11:06:09.630Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40b3161ba9657b6066f73",
+    "name": "Ropa Interior",
+    "description": "Cualquier cosa 3",
+    "createdAt": "2021-07-18T11:06:25.397Z",
+    "parentCategory": "60f40ad361ba9657b6066f70",
+    "updateAt": "2021-07-18T11:06:25.397Z",
+    "__v": 0
+  },
+  {
+    "_id": "60f40b6061ba9657b6066f74",
+    "name": "Tecnología",
+    "description": "Cualquier cosa de tech",
+    "createdAt": "2021-07-18T11:07:12.040Z",
+    "updateAt": "2021-07-18T11:07:12.040Z",
+    "__v": 0
+  }
 ]

@@ -15,8 +15,6 @@ const categories = require("./src/categories/categories.router");
 
 require("dotenv").config();
 
-
-
 const mongoose = require("mongoose");
 
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
