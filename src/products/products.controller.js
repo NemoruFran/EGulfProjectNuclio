@@ -29,6 +29,7 @@ const create = async (request, response) => {
   });
   response.json(productCreated);
 };
+
 const genericSearch = async (request, response) => {
   const userId = request.params.id;
   const productsById = await ProductsModel.getUsersProducts(userId);
@@ -123,6 +124,8 @@ const removeFav = async (req, res) => {
       .json("you cannot remove user favorites without product id");
   }
 };
+
+
 
 module.exports = {
   all,

@@ -32,6 +32,8 @@ router
 
 router.route("/:id/currentAuction").get(auctionController.auctionAndBids);
 
-router.route("/:id/currentAuction/bid").post(middleware, auctionController.createBid);
+router
+  .route("/:id/currentAuction/bid")
+  .post(middleware, auctionController.createBid);
 
 module.exports = router;
