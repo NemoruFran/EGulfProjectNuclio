@@ -3,6 +3,7 @@ const router = express.Router();
 const usersController = require("./user.controller");
 const jwt = require("jsonwebtoken");
 const { body } = require("express-validator");
+const auctionController = require("../auction/auction.controller");
 
 const middleware = async (req, res, next) => {
   const tokenWithBearer = req.headers.authorization;
@@ -29,6 +30,7 @@ router
   .get(usersController.getAll);
 
 router.route("/me/favorites").get(middleware, usersController.getFav);
+router.route("/me/productcreatedpage").get(middleware, auctionController.getByUserAuthorization);
 
 router
   .route("/:id")
