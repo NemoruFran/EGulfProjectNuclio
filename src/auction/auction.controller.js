@@ -123,6 +123,25 @@ const getByUserId = async (req, res) => {
   return res.status(200).json(auctionsByUser);
 };
 
+
+const getByUserAuthorization = async (req, res) => {
+  if (!req.headers.authorization) {
+    return res
+      .status(403)
+      .send({ message: "Your petition has no authorization" });
+  }
+  const token = req.headers.authorization.replace("Bearer ", "");
+  const tokenDecoded = jwt.decode(token);
+  console.log(tokenDecoded);
+  const userId = tokenDecoded.user._id;
+  const auctions = await AuctionModel.getAll();
+  const auctionsByUser = auctions.filter(
+    (auction) => auction.productId.owner.id === userId
+  );
+  return res.status(200).json(auctionsByUser);
+};
+
+
 module.exports = {
   create,
   getOne,
@@ -131,4 +150,5 @@ module.exports = {
   createBid,
   auctionAndBids,
   getByUserId,
+  getByUserAuthorization,
 };
