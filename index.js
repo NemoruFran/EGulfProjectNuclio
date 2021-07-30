@@ -45,7 +45,7 @@ app.use("/categories", categories);
 
 const start = async () => {
   try {
-    app.listen(process.env.PORT || 5000, () => {
+    app.listen(process.env.PORT || 5001, () => {
       console.log(`REST API on http://localhost:${process.env.PORT || 5000}/`);
     });
   } catch (e) {
