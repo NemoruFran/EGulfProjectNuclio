@@ -41,6 +41,10 @@ app.use("/bids", bids);
 app.use("/notifications", notifications);
 app.use("/auctions", auctions);
 app.use("/categories", categories);
+app.use('/healthcheck', (req, res) => {
+  console.log('GET healthcheck!');
+  return res.status(200).json({ message: 'OK' });
+});
 //app.use("/subcategories", subcategories);
 
 const start = async () => {
