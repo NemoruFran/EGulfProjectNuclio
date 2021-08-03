@@ -23,7 +23,8 @@ const create = async (req, res) => {
   //console.log(user);
   const token = jwt.sign({ user }, process.env.TOKEN_SECRET);
   console.log(jwt.decode(token));
-  res.status(201).json(token);
+  console.log(token);
+  res.status(201).json({ token: token });
 };
 
 const getAll = async (req, res) => {
