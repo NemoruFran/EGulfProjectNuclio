@@ -20,7 +20,7 @@ const create = async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, salt),
   });
-  const token = jwt.sign({ id: entities.id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign({ _id: entities.id }, process.env.TOKEN_SECRET);
   res.status(201).json({ token: token });
 };
 
@@ -65,8 +65,6 @@ const getFav = async (req, res) => {
     return res.status(404).json({ error: "user favorites not found" });
   }
 };
-
-
 
 module.exports = {
   create,
