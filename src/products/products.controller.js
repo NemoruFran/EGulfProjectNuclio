@@ -85,6 +85,7 @@ const addFav = async (req, res) => {
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
   const userId = tokenDecoded.user._id;
+  console.log(tokenDecoded.user);
   const productId = req.params.id;
 
   if (productId) {
