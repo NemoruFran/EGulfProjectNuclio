@@ -60,10 +60,12 @@ const update = async (request, response) => {
 const createBid = async (request, response) => {
   const paramId = request.params.id;
 
-  const auctionById = await AuctionModel.getById(paramId);
+  const auction = await AuctionModel.getOneByQuery({
+    productId: paramId,
+  });
 
   const bidById = await bidModel.bidsByAuction({
-    auctionId: paramId,
+    auctionId: auction,
   });
 
   if (
@@ -71,7 +73,7 @@ const createBid = async (request, response) => {
       request?.body?.bidAmount < 100000000) ||
     (!bidById[bidById.length - 1]?.bidAmount &&
       request?.body?.bidAmount < 100000000 &&
-      request?.body?.bidAmount > auctionById?.startingPrice)
+      request?.body?.bidAmount > auction?.startingPrice)
   ) {
     const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);
@@ -83,7 +85,7 @@ const createBid = async (request, response) => {
       auctionId: paramId,
     });
 
-    const updateCurrentPrice = productsModel.updateById(auctionById.productId, {
+    const updateCurrentPrice = productsModel.updateById(auction.productId, {
       currentPrice: request.body.bidAmount,
     });
 
@@ -123,7 +125,6 @@ const getByUserId = async (req, res) => {
   return res.status(200).json(auctionsByUser);
 };
 
-
 const getByUserAuthorization = async (req, res) => {
   if (!req.headers.authorization) {
     return res
@@ -140,7 +141,6 @@ const getByUserAuthorization = async (req, res) => {
   );
   return res.status(200).json(auctionsByUser);
 };
-
 
 module.exports = {
   create,
