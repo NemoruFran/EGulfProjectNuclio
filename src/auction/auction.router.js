@@ -36,4 +36,6 @@ router
   .route("/:id/currentAuction/bid")
   .post(middleware, auctionController.createBid);
 
+
+
 module.exports = router;

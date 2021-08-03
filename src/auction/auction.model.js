@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const ProductModel = require("../products/products.model");
+require ("../bids/bids.model")
+
 
 const AuctionSchema = new mongoose.Schema({
   startingDateTime: Date,
@@ -9,6 +11,7 @@ const AuctionSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
+  bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
 });
 
 const AuctionModel = mongoose.model("auctions", AuctionSchema);
@@ -57,10 +60,22 @@ const getOneByQuery = async (query) => {
   return auctions;
 };
 
+
+const updateBids = async (id, body) => {
+  const auction = await AuctionModel.findByIdAndUpdate(
+    id,
+    body
+  )
+  return auction;
+};
+
+
+
 module.exports = {
   create,
   getById,
   updateById,
   getOneByQuery,
   getAll,
+  updateBids,
 };
