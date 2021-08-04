@@ -68,7 +68,7 @@ const getFav = async (req, res) => {
   }
 };
 
-/* const auctionswin = async (req, res) => {
+const bidsByUser = async (req, res)  =>  {
   if (!req.headers.authorization) {
     return res
       .status(403)
@@ -76,80 +76,46 @@ const getFav = async (req, res) => {
   }
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.user._id;
-  const user = await userModel.get(userId);
+  const userIdtoken = tokenDecoded.user._id;
+  const user = await userModel.get(userIdtoken);
   if (user) {
-    const bidsUser = await 
-
-    return res.status(200).json(user.productFavs);
-  } else {
-    return res.status(404).json({ error: "user favorites not found" });
-  }
-}; */
-
-const bidsByUser = async (req, res)  =>  {
   const bidByIdUser = await bidModel.bidsByUser({
-    userId: "60e7f052df5a6d070e1ad960",
+    userId: userIdtoken,
   });
 
   const subastasUser = [];
   const subastasObjeto =[];
-  const subastasActivasGanando  = [];
-  const subastasActivasPerdidas = [];
-  const subastasTerminadasPerdidas = [];
- /*  let contadorActivasGanando = 0;
-  let contadorActivasPerdidas = 0;
-  let contadorTerminadasPerdidas = 0; */
- 
-  
+  const activeAuctionsWinning  = [];
+  const activeAuctionsLost = [];
+  const endedAuctionsLost = [];
+
   bidByIdUser.forEach( (bid) => {
     if (!subastasUser.includes(bid.auctionId._id)) {
       subastasUser.push(bid.auctionId._id);
       subastasObjeto.push(bid)
-
     }
   });
-  
-  subastasObjeto.forEach((subasta) => {
-  
-    if (new Date(subasta.auctionId.endingDateTime) > new Date()) {
-      console.log("subasta viva")
-      console.log(subasta.auctionId.productId.currentPrice)
-      console.log("la subasta final es de" + subasta.auctionId.bidsAuction[subasta.auctionId.bidsAuction.length -1].userId)
-      if ("60e7f052df5a6d070e1ad960" == subasta.auctionId.bidsAuction[subasta.auctionId.bidsAuction.length -1].userId){
-        console.log("vas ganando cabroncete")
-        //contadorActivasGanando = contadorActivasGanando +1;
-        subastasActivasGanando.push(subasta)
+  subastasObjeto.forEach((auction) => {
+    if (new Date(auction.auctionId.endingDateTime) > new Date()) {
+      if (userIdtoken == auction.auctionId.bidsAuction[auction.auctionId.bidsAuction.length -1].userId){
+        activeAuctionsWinning.push(auction)
       }
       else{
-        console.log("Metele pasta que pierdes")
-        //contadorActivasPerdidas = contadorActivasPerdidas +1;
-        subastasActivasPerdidas.push(subasta)
+        activeAuctionsLost.push(auction)
       }
     } 
     else {
-      console.log("subasta cerrada")
-      if ("60e7f052df5a6d070e1ad960" !== subasta.auctionId.bidsAuction[subasta.auctionId.bidsAuction.length -1].userId){
-        //contadorTerminadasPerdidas  = contadorTerminadasPerdidas + 1;
-        subastasTerminadasPerdidas.push(subasta)
-        console.log("perdiste")
-        console.log("la subasta se cerro en "  + subasta.auctionId.productId.currentPrice)
+      if (userIdtoken !== auction.auctionId.bidsAuction[auction.auctionId.bidsAuction.length -1].userId){
+        endedAuctionsLost.push(auction)
       } 
     }  
- 
   })
-  /* console.log("subastasActivasGanando" + subastasActivasGanando.length)
-  console.log("activa perdidas" + subastasActivasPerdidas.length)
-  console.log("muertas perdidas" +  subastasTerminadasPerdidas.length) */
-
-  
-  
-
-  return res.status(200).json({activas:subastasActivasGanando,perdiendo:subastasActivasPerdidas,perdidas:subastasTerminadasPerdidas})
-  
-
+  return res.status(200).json({active:activeAuctionsWinning,losing:activeAuctionsLost,lost:endedAuctionsLost})
+  }
+  else {
+    return res.status(404).json({ error: "User no bids" });
+  }
 }
-
 module.exports = {
   create,
   getAll,
