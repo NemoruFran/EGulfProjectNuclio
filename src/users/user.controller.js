@@ -124,6 +124,23 @@ const bidsByUser = async (req, res)  =>  {
     return res.status(404).json({ error: "User no bids" });
   }
 }
+
+const getUserId = async (req, res) => {
+  if (!req.headers.authorization) {
+    return res
+      .status(403)
+      .send({ message: "Your petition has no authorization" });
+  }
+  const token = req.headers.authorization.replace("Bearer ", "");
+  const tokenDecoded = jwt.decode(token);
+  const userId = tokenDecoded.user._id;
+  if (userId) {
+    return res.status(200).json(userId);
+  } else {
+    return res.status(404).json({ error: "user favorites not found" });
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -131,4 +148,5 @@ module.exports = {
   get,
   getFav,
   bidsByUser,
+  getUserId,
 };
