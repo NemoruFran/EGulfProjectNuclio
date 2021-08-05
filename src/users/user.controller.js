@@ -13,16 +13,19 @@ const create = async (req, res) => {
   }
 
   const salt = bcrypt.genSaltSync(10);
-  const entities = await userModel.create({
+  const user = await userModel.create({
     name: req.body.name,
     avatar: req.body.avatar,
-    rating: req.body.rating,
-    address: req.body.address,
+    rating: "92",
+    address: "221B Baker Street",
     gender: req.body.gender,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, salt),
   });
-  const token = jwt.sign({ id: entities.id }, process.env.TOKEN_SECRET);
+  //console.log(user);
+  const token = jwt.sign({ user }, process.env.TOKEN_SECRET);
+  console.log(jwt.decode(token));
+  console.log(token);
   res.status(201).json({ token: token });
 };
 

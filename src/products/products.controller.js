@@ -2,6 +2,7 @@ const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const userModel = require("./../users/users.model");
+const auctionModel = require("./../auction/auction.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -29,7 +30,7 @@ const create = async (request, response) => {
   response.json(productCreated);
 };
 
-const genericSearch = async (request, response) => {
+/* const genericSearch = async (request, response) => {
   const userId = request.params.id;
   const productsById = await ProductsModel.getUsersProducts(userId);
   if (productsById) {
@@ -37,7 +38,17 @@ const genericSearch = async (request, response) => {
   } else {
     return response.status(404).json("couldn't find product!");
   }
+}; */
+
+const genericSearch = async (req, res) => {
+  const userId = req.params.id;
+  const products = await ProductsModel.getAllPopulate();
+  const productsByUser = products.filter(
+    (product) => product.owner.id === userId
+  );
+  return res.status(200).json(productsByUser);
 };
+
 const getOne = async (request, response) => {
   const productById = await ProductsModel.getById(request.params.id);
   if (productById) {
@@ -73,15 +84,22 @@ const addFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
+  const userId = tokenDecoded.user._id;
+  console.log(tokenDecoded.user);
+  const productId = req.params.id;
 
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+  if (productId) {
+    /* const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id;
+    console.log(productId); */
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $addToSet: { usersFavs: userId },
     });
+
     const updateUserFavs = await userModel.upDate(userId, {
-      $addToSet: { favoriteProducts: id },
+      $addToSet: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
@@ -95,15 +113,20 @@ const removeFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
+  const userId = tokenDecoded.user._id;
+  const productId = req.params.id;
+  console.log(userId);
 
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+  if (productId) {
+    /*  const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id; */
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $pull: { usersFavs: userId },
     });
     const updateUserFavs = await userModel.upDate(userId, {
-      $pull: { favoriteProducts: id },
+      $pull: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
@@ -112,8 +135,6 @@ const removeFav = async (req, res) => {
       .json("you cannot remove user favorites without product id");
   }
 };
-
-
 
 module.exports = {
   all,
