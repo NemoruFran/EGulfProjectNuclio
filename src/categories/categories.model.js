@@ -36,9 +36,15 @@ const getSubcategories = async (parentId) => {
   return subcategories;
 };
 
+const search = async (query) => {
+  const categories = await CategoryModel.find(query);
+  return categories;
+};
+
 module.exports = {
   create,
   getSubcategories,
   getAll,
   findById,
+  search,
 };

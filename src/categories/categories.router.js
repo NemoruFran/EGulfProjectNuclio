@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const categoriesController = require("./categories.controller");
 const jwt = require("jsonwebtoken");
+const { getSubcategories } = require("./categories.model");
 
 const middleware = async (req, res, next) => {
   if (!req.headers.authorization) {
@@ -25,6 +26,7 @@ router
 router.route("/:id/products").get(categoriesController.getProducts);
 router.route("/:id/subcategories").get(categoriesController.getSubcategories);
 router.route("/:id/parents").get(categoriesController.getParents);
-router.route("/parents").get(categoriesController.getMainParents);
+router.route("/name/:id").get(categoriesController.getSubcategoriesbyName);
+router.route("/searchName/:id").get(categoriesController.search);
 
 module.exports = router;
