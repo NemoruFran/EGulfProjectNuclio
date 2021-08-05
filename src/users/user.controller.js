@@ -110,7 +110,12 @@ const bidsByUser = async (req, res)  =>  {
       } 
     }  
   })
-  return res.status(200).json({active:activeAuctionsWinning,losing:activeAuctionsLost,lost:endedAuctionsLost})
+  return res.status(200).json({
+    userId: userIdtoken,
+    active:activeAuctionsWinning,
+    losing:activeAuctionsLost,
+    lost:endedAuctionsLost
+  })
   }
   else {
     return res.status(404).json({ error: "User no bids" });
