@@ -24,7 +24,7 @@ const create = async (request, response) => {
     images: request.body.images,
     productState: request.body.productState,
     usersFavs: request.body.userFavs,
-    sellerId: tokenDecoded.id,
+    owner: tokenDecoded.id,
     categoryId: request.body.categoryId,
   });
 
@@ -41,9 +41,7 @@ const create = async (request, response) => {
     bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
   } */
 
-
   response.json(productCreated);
-
 };
 
 /* const genericSearch = async (request, response) => {
@@ -219,4 +217,6 @@ module.exports = {
   addFav,
   removeFav,
   genericSearch,
+  createBid,
+  auctionAndBids,
 };

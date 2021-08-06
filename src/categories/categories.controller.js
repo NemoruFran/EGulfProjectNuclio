@@ -22,12 +22,18 @@ const create = async (request, response) => {
 };
 
 const getProducts = async (request, response) => {
+  const minPrice = request.query.minPrice || 0;
+  const maxPrice = request.query.maxPrice || 99999;
   const id = request.params.id;
   const products = await productModel.search({ categoryId: id });
-  if (products) {
-    return response.status(200).json(products);
+  if (!minPrice && !maxPrice) {
+    return response.json(products);
   } else {
-    return response.status(404).json("products by category not found");
+    const productByPrice = await productModel.search({
+      categoryId: id,
+      currentPrice: { $gte: minPrice, $lte: maxPrice },
+    });
+    return response.json(productByPrice);
   }
 };
 
