@@ -23,8 +23,19 @@ router
   .get(auctionController.getAll)
   .post(middleware, auctionController.create);
 
+router.route("/user/:id").get(auctionController.getByUserId);
+
 router
   .route("/:id")
   .get(auctionController.getOne)
   .put(auctionController.update);
+
+router.route("/:id/currentAuction").get(auctionController.auctionAndBids);
+
+router
+  .route("/:id/currentAuction/bid")
+  .post(middleware, auctionController.createBid);
+
+
+
 module.exports = router;

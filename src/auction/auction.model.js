@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-require("../products/products.model");
+const ProductModel = require("../products/products.model");
+require ("../bids/bids.model")
 
 
 const AuctionSchema = new mongoose.Schema({
@@ -10,24 +11,30 @@ const AuctionSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
+  bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
 });
 
 const AuctionModel = mongoose.model("auctions", AuctionSchema);
 
 const create = async (auction) => {
   const auctionCreated = await AuctionModel.create(auction);
+  await ProductModel.updateAuctionsReference(
+    auctionCreated.productId,
+    auctionCreated
+  );
   return auctionCreated;
 };
 
 const getAll = async () => {
-  const auctions = await AuctionModel.find().populate("productId", ["name", "description", "images"])
-  .populate({
-    path: "productId",
-    populate: {
-      path: "owner",
-      model: "users",
-    },
-  });
+  const auctions = await AuctionModel.find()
+    .populate("productId", ["name", "description", "images"])
+    .populate({
+      path: "productId",
+      populate: {
+        path: "owner",
+        model: "users",
+      },
+    });
   return auctions;
 };
 
@@ -37,7 +44,7 @@ const getById = async (id) => {
     .populate({
       path: "productId",
       populate: {
-        path: "sellerId",
+        path: "owner",
         model: "users",
         select: "name rating",
       },
@@ -53,10 +60,22 @@ const getOneByQuery = async (query) => {
   return auctions;
 };
 
+
+const updateBids = async (id, body) => {
+  const auction = await AuctionModel.findByIdAndUpdate(
+    id,
+    body
+  )
+  return auction;
+};
+
+
+
 module.exports = {
   create,
   getById,
   updateById,
   getOneByQuery,
   getAll,
+  updateBids,
 };
