@@ -60,14 +60,12 @@ const update = async (request, response) => {
 const createBid = async (request, response) => {
   const paramId = request.params.id;
 
-  const auction = await AuctionModel.getOneByQuery({
-    productId: paramId,
-  });
+  const auction = await AuctionModel.getById(paramId);
 
   const bidById = await bidModel.bidsByAuction({
     auctionId: auction,
   });
-
+  console.log(auction, bidById);
   if (
     (request?.body?.bidAmount > bidById[bidById.length - 1]?.bidAmount &&
       request?.body?.bidAmount < 100000000) ||
@@ -89,10 +87,10 @@ const createBid = async (request, response) => {
       currentPrice: request.body.bidAmount,
     });
 
-    const addBid = await AuctionModel.updateBids(auctionById._id, {
+    const addBid = await AuctionModel.updateBids(auction._id, {
       // bidsAuction: bid._id
       $addToSet: { bidsAuction: bid._id },
-    })
+    });
 
     return response.status(201).json(bid);
   } else {

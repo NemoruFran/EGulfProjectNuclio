@@ -162,11 +162,11 @@ const createBid = async (request, response) => {
   const bidById = await bidModel.bidsByAuction({
     auctionId: bidId,
   });
-
+  console.log(bidById, auctionById);
   if (
-    request.body.bidAmount > bidById[bidById.length - 1].bidAmount ||
-    (!bidById[bidById.length - 1].bidAmount &&
-      request.body.bidAmount > auctionById.startingPrice)
+    (bidById === undefined &&
+      request.body.bidAmount > auctionById.startingPrice) ||
+    request.body.bidAmount > bidById[bidById.length - 1].bidAmount
   ) {
     const token = request.headers.authorization.split(" ")[1];
     const tokenDecoded = jwt.decode(token);
