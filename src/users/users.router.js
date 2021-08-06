@@ -29,8 +29,11 @@ router
   )
   .get(usersController.getAll);
 
+router.route("/userId").get(middleware, usersController.getUserId);
+
 router.route("/me/favorites").get(middleware, usersController.getFav);
 router.route("/me/productcreatedpage").get(middleware, auctionController.getByUserAuthorization);
+router.route("/me/bids").get(usersController.bidsByUser);
 
 router
   .route("/:id")

@@ -20,7 +20,17 @@ const ProductsSchema = new mongoose.Schema({
 const ProductsModel = mongoose.model("products", ProductsSchema);
 
 const getAll = async () => {
-  const products = await ProductsModel.find().populate("auctions");
+  const products = await ProductsModel.find()
+    .populate("auctions")
+    .populate("owner", "name");
+  return products;
+};
+
+const getAllPopulate = async () => {
+  const products = await ProductsModel.find().populate({
+    path: "owner",
+    model: "users",
+  });
   return products;
 };
 
@@ -30,17 +40,14 @@ const getUsersProducts = async (id) => {
 };
 
 const create = async (product) => {
-  const productCreated = await ProductsModel.create(product).populate(
-    "auctions"
-  );
+  const productCreated = await ProductsModel.create(product);
   return productCreated;
 };
 
 const getById = async (id) => {
-  const productById = await ProductsModel.findById(id).populate(
-    "owner",
-    "auctions"
-  ); //TODO: es pot posar un array per pillar tot el que volem
+  const productById = await ProductsModel.findById(id)
+    .populate("auctions")
+    .populate("owner", "name"); //TODO: es pot posar un array per pillar tot el que volem
   return productById;
 };
 
@@ -50,7 +57,9 @@ const searchWord = async (query) => {
 };
 
 const search = async (query) => {
-  const products = await ProductsModel.find(query).populate("auctions");
+  const products = await ProductsModel.find(query)
+    .populate("auctions")
+    .populate("owner", "name");
   return products;
 };
 
@@ -70,8 +79,14 @@ const getByIdSimple = async (id) => {
 
 const updateAuctionsReference = async (productId, auction) => {
   const product = await ProductsModel.findById(productId);
+  console.log(product);
   product.auctions = [...product.auctions, auction._id];
   const updatedProduct = await product.save();
+};
+
+const filterByPrice = async (query) => {
+  const products = await ProductsModel.find(query);
+  return products;
 };
 
 module.exports = {
@@ -84,4 +99,5 @@ module.exports = {
   search,
   getUsersProducts,
   updateAuctionsReference,
+  getAllPopulate,
 };

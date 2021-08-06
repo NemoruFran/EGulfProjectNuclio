@@ -49,8 +49,8 @@ app.use('/healthcheck', (req, res) => {
 
 const start = async () => {
   try {
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`REST API on http://localhost:${process.env.PORT || 5000}/`);
+    app.listen(process.env.PORT || 5001, () => {
+      console.log(`REST API on http://localhost:${process.env.PORT || 5001}/`);
     });
   } catch (e) {
     console.error(e);
