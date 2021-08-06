@@ -35,6 +35,6 @@ router
 
 router.route("/search/:text").get(productsController.search);
 
-router.route("/user/:id").get(productsController.genericSearch);
+// router.route("/user/:id").get(productsController.genericSearch);
 
 module.exports = router;
