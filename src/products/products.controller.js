@@ -27,7 +27,23 @@ const create = async (request, response) => {
     sellerId: tokenDecoded.id,
     categoryId: request.body.categoryId,
   });
+
+  /* const productCreatedId = productCreated._id
+
+  const auctionCreated = await auctionModel.create){
+    startingDateTime: Date,
+    endingDateTime: Date,
+    startingPrice: Number,
+    shippingFee: Number,
+    createdAt: { type: Date, default: Date.now },
+    updateAt: { type: Date, default: Date.now },
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
+    bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
+  } */
+
+
   response.json(productCreated);
+
 };
 
 /* const genericSearch = async (request, response) => {
@@ -133,6 +149,64 @@ const removeFav = async (req, res) => {
     return res
       .status(404)
       .json("you cannot remove user favorites without product id");
+  }
+};
+
+const createBid = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await auctionModel.getOneByQuery({
+    productId: paramId,
+  });
+
+  const bidId = auctionById._id;
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: bidId,
+  });
+
+  if (
+    request.body.bidAmount > bidById[bidById.length - 1].bidAmount ||
+    (!bidById[bidById.length - 1].bidAmount &&
+      request.body.bidAmount > auctionById.startingPrice)
+  ) {
+    const token = request.headers.authorization.split(" ")[1];
+    const tokenDecoded = jwt.decode(token);
+    const userTokenId = tokenDecoded.user._id;
+
+    const bid = await bidModel.create({
+      ...request.body,
+      userId: userTokenId,
+      auctionId: auctionById.id,
+    });
+
+    return response.status(201).json(bid);
+  } else {
+    return response
+      .status(404)
+      .json(
+        "you cannot create bid because the bid is too low or doesn't exist"
+      );
+  }
+};
+
+const auctionAndBids = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await auctionModel.getOneByQuery({
+    productId: paramId,
+  });
+
+  const bidId = auctionById._id;
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: bidId,
+  });
+
+  if (auctionById || bidById) {
+    return response.status(200).json({ auctions: auctionById, bids: bidById });
+  } else {
+    return response.status(404).json("couldn't find auction and bids!");
   }
 };
 
