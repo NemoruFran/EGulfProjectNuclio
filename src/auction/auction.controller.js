@@ -88,8 +88,8 @@ const createBid = async (request, response) => {
     const updateCurrentPrice = productsModel.updateById(auction.productId, {
       currentPrice: request.body.bidAmount,
     });
-
-    const addBid = await AuctionModel.updateBids(auctionById._id, {
+   
+    const addBid = await AuctionModel.updateBids(auction._id, {
       // bidsAuction: bid._id
       $addToSet: { bidsAuction: bid._id },
     })
