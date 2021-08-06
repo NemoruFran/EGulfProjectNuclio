@@ -27,7 +27,23 @@ const create = async (request, response) => {
     sellerId: tokenDecoded.id,
     categoryId: request.body.categoryId,
   });
+
+  /* const productCreatedId = productCreated._id
+
+  const auctionCreated = await auctionModel.create){
+    startingDateTime: Date,
+    endingDateTime: Date,
+    startingPrice: Number,
+    shippingFee: Number,
+    createdAt: { type: Date, default: Date.now },
+    updateAt: { type: Date, default: Date.now },
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
+    bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
+  } */
+
+
   response.json(productCreated);
+
 };
 
 /* const genericSearch = async (request, response) => {
