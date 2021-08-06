@@ -2,6 +2,7 @@ const ProductsModel = require("./products.model");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const userModel = require("./../users/users.model");
+const auctionModel = require("./../auction/auction.model");
 
 const all = async (request, response) => {
   const product = await ProductsModel.getAll();
@@ -26,10 +27,24 @@ const create = async (request, response) => {
     owner: tokenDecoded.id,
     categoryId: request.body.categoryId,
   });
+
+  /* const productCreatedId = productCreated._id
+
+  const auctionCreated = await auctionModel.create){
+    startingDateTime: Date,
+    endingDateTime: Date,
+    startingPrice: Number,
+    shippingFee: Number,
+    createdAt: { type: Date, default: Date.now },
+    updateAt: { type: Date, default: Date.now },
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: "products" },
+    bidsAuction: [{type: mongoose.Schema.Types.ObjectId, ref: "bids"}],
+  } */
+
   response.json(productCreated);
 };
 
-const genericSearch = async (request, response) => {
+/* const genericSearch = async (request, response) => {
   const userId = request.params.id;
   const productsById = await ProductsModel.getUsersProducts(userId);
   if (productsById) {
@@ -37,7 +52,17 @@ const genericSearch = async (request, response) => {
   } else {
     return response.status(404).json("couldn't find product!");
   }
+}; */
+
+const genericSearch = async (req, res) => {
+  const userId = req.params.id;
+  const products = await ProductsModel.getAllPopulate();
+  const productsByUser = products.filter(
+    (product) => product.owner.id === userId
+  );
+  return res.status(200).json(productsByUser);
 };
+
 const getOne = async (request, response) => {
   const productById = await ProductsModel.getById(request.params.id);
   if (productById) {
@@ -73,15 +98,22 @@ const addFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
+  const userId = tokenDecoded.user._id;
+  console.log(tokenDecoded.user);
+  const productId = req.params.id;
 
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+  if (productId) {
+    /* const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id;
+    console.log(productId); */
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $addToSet: { usersFavs: userId },
     });
+
     const updateUserFavs = await userModel.upDate(userId, {
-      $addToSet: { favoriteProducts: id },
+      $addToSet: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
@@ -95,21 +127,84 @@ const removeFav = async (req, res) => {
   // puede que desde la pagina haya que sacar el id de usuario de tokenDecoded.user._id y que el actual no funcione
   const token = req.headers.authorization.replace("Bearer ", "");
   const tokenDecoded = jwt.decode(token);
-  const userId = tokenDecoded.id;
-  const id = req.params.id;
+  const userId = tokenDecoded.user._id;
+  const productId = req.params.id;
+  console.log(userId);
 
-  if (id) {
-    const updateFavs = await ProductsModel.updateById(id, {
+  if (productId) {
+    /*  const searchProduct = await auctionModel.getById(id);
+
+    const productId = searchProduct.productId._id; */
+
+    const updateFavs = await ProductsModel.updateById(productId, {
       $pull: { usersFavs: userId },
     });
     const updateUserFavs = await userModel.upDate(userId, {
-      $pull: { favoriteProducts: id },
+      $pull: { productFavs: productId },
     });
     return res.status(200).json({ products: updateFavs, user: updateUserFavs });
   } else {
     return res
       .status(404)
       .json("you cannot remove user favorites without product id");
+  }
+};
+
+const createBid = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await auctionModel.getOneByQuery({
+    productId: paramId,
+  });
+
+  const bidId = auctionById._id;
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: bidId,
+  });
+
+  if (
+    request.body.bidAmount > bidById[bidById.length - 1].bidAmount ||
+    (!bidById[bidById.length - 1].bidAmount &&
+      request.body.bidAmount > auctionById.startingPrice)
+  ) {
+    const token = request.headers.authorization.split(" ")[1];
+    const tokenDecoded = jwt.decode(token);
+    const userTokenId = tokenDecoded.user._id;
+
+    const bid = await bidModel.create({
+      ...request.body,
+      userId: userTokenId,
+      auctionId: auctionById.id,
+    });
+
+    return response.status(201).json(bid);
+  } else {
+    return response
+      .status(404)
+      .json(
+        "you cannot create bid because the bid is too low or doesn't exist"
+      );
+  }
+};
+
+const auctionAndBids = async (request, response) => {
+  const paramId = request.params.id;
+
+  const auctionById = await auctionModel.getOneByQuery({
+    productId: paramId,
+  });
+
+  const bidId = auctionById._id;
+
+  const bidById = await bidModel.bidsByAuction({
+    auctionId: bidId,
+  });
+
+  if (auctionById || bidById) {
+    return response.status(200).json({ auctions: auctionById, bids: bidById });
+  } else {
+    return response.status(404).json("couldn't find auction and bids!");
   }
 };
 
@@ -122,4 +217,6 @@ module.exports = {
   addFav,
   removeFav,
   genericSearch,
+  createBid,
+  auctionAndBids,
 };

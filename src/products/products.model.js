@@ -26,6 +26,14 @@ const getAll = async () => {
   return products;
 };
 
+const getAllPopulate = async () => {
+  const products = await ProductsModel.find().populate({
+    path: "owner",
+    model: "users",
+  });
+  return products;
+};
+
 const getUsersProducts = async (id) => {
   const products = await ProductsModel.find({ owner: id }).populate("auctions");
   return products;
@@ -87,5 +95,5 @@ module.exports = {
   search,
   getUsersProducts,
   updateAuctionsReference,
-  filterByPrice,
+  getAllPopulate,
 };

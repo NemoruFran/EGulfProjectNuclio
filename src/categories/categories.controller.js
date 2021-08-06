@@ -31,7 +31,7 @@ const getProducts = async (request, response) => {
   } else {
     const productByPrice = await productModel.search({
       categoryId: id,
-      currentOrice: { $gte: minPrice, $lte: maxPrice },
+      currentPrice: { $gte: minPrice, $lte: maxPrice },
     });
     return response.json(productByPrice);
   }
@@ -45,6 +45,24 @@ const getSubcategories = async (request, response) => {
   } else {
     return response.status(404).json("no subcategories found");
   }
+};
+
+const getSubcategoriesbyName = async (request, response) => {
+  const categoryName = request.params.id;
+  const category = await CategoryModel.search({ name: categoryName });
+  if (category) {
+    const subcategoriesF = await CategoryModel.getSubcategories(category[0].id);
+    if (subcategoriesF) {
+      return response.status(200).json(subcategoriesF);
+    } else {
+      return response.status(404).json("no subcategories found");
+    }
+    //const categoryId = category[0].id;
+    //return response.status(200).json(categoryId);
+  } else
+    return response
+      .status(404)
+      .json("the parent category has not been found by name");
 };
 
 const getAll = async (request, response) => {
@@ -79,10 +97,22 @@ const getParents = async (request, response) => {
   return response.status(200).json(parents);
 };
 
+const search = async (request, response) => {
+  const id = request.params.id;
+  var category = await CategoryModel.search({ name: id });
+  if (!category) {
+    return response.status(404).json("Search didn't find anything");
+  } else {
+    return response.status(200).json(category);
+  }
+};
+
 module.exports = {
   create,
   getProducts,
   getSubcategories,
   getAll,
   getParents,
+  getSubcategoriesbyName,
+  search,
 };
