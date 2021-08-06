@@ -1,58 +1,64 @@
 [
-    {
-        "role": "user",
-        "productsViews": [],
-        "productFavs": [],
-        "_id": { "$oid": "60ec04ad34c0e3112018aa84" },
-        "name": "Carlota",
-        "avatar": "https://publicdomainvectors.org/photos/Linux-Avatar.png",
-        "rating": 99,
-        "address": "ciudad real 24",
-        "gender": "female",
-        "email": "carlota@gmail.com",
-        "password": "$2b$10$SpVnKwum2BE89FQI3wR7COianjTI77SAdObHhXybMlrG3dnH21d3S",
-        "createDate": {
-            "$date": "2021-07-12T09:03:22.720Z"
-          },
-          "__v": 0
+  {
+    "role": "user",
+    "productsViews": [],
+    "productFavs": [],
+    "_id": { "$oid": "60ec04ad34c0e3112018aa84" },
+    "name": "Carlota",
+    "avatar": "https://publicdomainvectors.org/photos/Linux-Avatar.png",
+    "rating": 99,
+    "address": "ciudad real 24",
+    "gender": "female",
+    "email": "carlota@gmail.com",
+    "password": "$2b$10$SpVnKwum2BE89FQI3wR7COianjTI77SAdObHhXybMlrG3dnH21d3S",
+    "createDate": {
+      "$date": "2021-07-12T09:03:22.720Z"
     },
-    {
-        "role": "user",
-        "productsViews": [],
-        "productFavs": [],
-        "_id": { "$oid": "60ec055a34c0e3112018aa85" },
-        "name": "Nathaly",
-        "avatar": "https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/01/hipertextual-es-figura-baby-yoda-mas-real-que-podras-comprar-2020062519.jpeg?w=1920&ssl=1",
-        "rating": 88,
-        "address": "Sepulveda 19",
-        "gender": "female",
-        "email": "nathaly@gmail.com",
-        "password": "$2b$10$vnHxiruUTcaZiWgpBUbZeONl/qb92Ian.olZDqxlU9vBOfrWwCHyu",
-        "createDate": {
-            "$date": "2021-07-12T09:03:22.720Z"
-          },
-          "__v": 0
+    "__v": 0
+  },
+  {
+    "role": "user",
+    "productsViews": [],
+    "productFavs": [],
+    "_id": { "$oid": "60ec055a34c0e3112018aa85" },
+    "name": "Nathaly",
+    "avatar": "https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/01/hipertextual-es-figura-baby-yoda-mas-real-que-podras-comprar-2020062519.jpeg?w=1920&ssl=1",
+    "rating": 88,
+    "address": "Sepulveda 19",
+    "gender": "female",
+    "email": "nathaly@gmail.com",
+    "password": "$2b$10$vnHxiruUTcaZiWgpBUbZeONl/qb92Ian.olZDqxlU9vBOfrWwCHyu",
+    "createDate": {
+      "$date": "2021-07-12T09:03:22.720Z"
     },
-    {
-        "_id": {"$oid": "60e7f052df5a6d070e1ad960"},
-        "role": "user",
-        "productsViews": [],
-        "productFavs": [],
-        "name": "Raquel",
-        "rating": 79,
-        "address": "Sepulveda 19",
-        "email": "raquel@gmail.com",
-        "password": "$2b$10$6cW59E1FtU5mK.c.xb53E.7Rm7TDo/F4fP2KQdil2Ujxl0BMn69DW",
-        "createDate": {
-            "$date": "2021-07-12T09:03:22.720Z"
-          },
-          "__v": 0
-          
-    }
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "60e7f052df5a6d070e1ad960" },
+    "role": "user",
+    "productsViews": [],
+    "productFavs": [],
+    "name": "Raquel",
+    "rating": 79,
+    "address": "Sepulveda 19",
+    "email": "raquel@gmail.com",
+    "password": "$2b$10$6cW59E1FtU5mK.c.xb53E.7Rm7TDo/F4fP2KQdil2Ujxl0BMn69DW",
+    "createDate": {
+      "$date": "2021-07-12T09:03:22.720Z"
+    },
+    "__v": 0
+  },
+  {
+    "role": "user",
+    "productsViews": [],
+    "productFavs": [],
+    "_id": { "$oid": "6102544906fdee55d0e4c126" },
+    "name": "Clàudia",
+    "email": "clau@gmail.com",
+    "password": "$2b$10$uo8P7ItrSqPsx7PBL/NLou4In/UBhOy0lo5YUemykBSTRnFcE19Q.",
+    "createDate": "2021-07-29T07:10:01.449Z",
+    "address": "Nuclio 23",
+    "rating": 90,
+    "__v": 0
+  }
 ]
-
-
-
-
-
-

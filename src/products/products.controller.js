@@ -23,7 +23,7 @@ const create = async (request, response) => {
     images: request.body.images,
     productState: request.body.productState,
     usersFavs: request.body.userFavs,
-    sellerId: tokenDecoded.id,
+    owner: tokenDecoded.id,
     categoryId: request.body.categoryId,
   });
   response.json(productCreated);
@@ -112,8 +112,6 @@ const removeFav = async (req, res) => {
       .json("you cannot remove user favorites without product id");
   }
 };
-
-
 
 module.exports = {
   all,
