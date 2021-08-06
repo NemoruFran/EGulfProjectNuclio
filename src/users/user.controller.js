@@ -93,7 +93,8 @@ const bidsByUser = async (req, res)  =>  {
   const endedAuctionsLost = [];
 
   bidByIdUser.forEach( (bid) => {
-    if (!subastasUser.includes(bid.auctionId._id)) {
+    
+    if (bid.auctionId != null && !subastasUser.includes(bid.auctionId._id)) {
       subastasUser.push(bid.auctionId._id);
       subastasObjeto.push(bid)
     }
