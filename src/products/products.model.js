@@ -45,7 +45,9 @@ const create = async (product) => {
 };
 
 const getById = async (id) => {
-  const productById = await ProductsModel.findById(id).populate("auctions"); //TODO: es pot posar un array per pillar tot el que volem
+  const productById = await ProductsModel.findById(id)
+    .populate("auctions")
+    .populate("owner", "name"); //TODO: es pot posar un array per pillar tot el que volem
   return productById;
 };
 
@@ -55,7 +57,9 @@ const searchWord = async (query) => {
 };
 
 const search = async (query) => {
-  const products = await ProductsModel.find(query).populate("auctions");
+  const products = await ProductsModel.find(query)
+    .populate("auctions")
+    .populate("owner", "name");
   return products;
 };
 

@@ -72,22 +72,6 @@
     "updateAt": "2021-07-18T11:06:09.630Z"
   },
   {
-    "_id": { "$oid": "60f40b3161ba9657b6066f73" },
-    "name": "Calzado hombre",
-    "description": "Cualquier cosa 3",
-    "createdAt": "2021-07-18T11:06:25.397Z",
-    "parentCategory": "60f40ad361ba9657b6066f70",
-    "updateAt": "2021-07-18T11:06:25.397Z"
-  },
-  {
-    "_id": { "$oid": "6102546b06fdee55d0e4c127" },
-    "name": "Calzado mujer",
-    "description": "Cualquier cosa 3",
-    "createdAt": "2021-07-29T07:10:35.302Z",
-    "parentCategory": "60f40ad361ba9657b6066f70",
-    "updateAt": "2021-07-29T07:10:35.302Z"
-  },
-  {
     "_id": { "$oid": "610256ac0cd90456728dc21b" },
     "name": "Electrónica",
     "description": "Cualquier cosa de tech",
